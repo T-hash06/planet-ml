@@ -16,7 +16,8 @@
 		"baseUrl": ".",
 		"paths": {
 			"@pages/*": ["app/pages/*"],
-			"@shared/*": ["app/shared/*"]
+			"@shared/*": ["app/shared/*"],
+			"@assets/*": ["app/assets/*"]
 		},
 		"esModuleInterop": true,
 		"verbatimModuleSyntax": true,
