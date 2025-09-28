@@ -119,7 +119,7 @@ const KeyFeatures = () => {
 			initial="hidden"
 			animate={isInView ? 'visible' : 'hidden'}
 			variants={containerVariants}
-			className="mt-40 tracking-wider"
+			className="mt-42 tracking-wider"
 		>
 			{/** biome-ignore lint/correctness/useUniqueElementIds: Because this is a static page */}
 			<motion.h2
