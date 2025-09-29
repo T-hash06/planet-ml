@@ -1,4 +1,50 @@
 import { CompassIcon } from '@phosphor-icons/react';
+import { memo } from 'react';
+
+const Chart = memo(() => {
+	return (
+		<div className="col-span-2 h-[28rem] rounded-large bg-content2 p-8 pt-6 pb-32">
+			<h3 className="mb-8 w-full text-center font-bold text-2xl text-foreground">
+				Performance Metrics
+			</h3>
+			<div className="relative h-full w-full">
+				{Array.from({ length: 5 }, (_, i) => {
+					const percentage = (100 - i * 25) / 100;
+
+					return (
+						<div
+							key={percentage}
+							className="absolute top-0 left-[4rem] h-[1px] w-[calc(100%-4rem)] bg-foreground/10"
+							style={{ top: `${i * 25}%` }}
+						>
+							<span className="-left-14 -top-2.5 absolute text-foreground/50 text-sm">
+								{percentage.toFixed(2)}%
+							</span>
+						</div>
+					);
+				})}
+
+				<div className="absolute inset-0 left-[4rem] flex items-end justify-evenly">
+					<div className="relative flex h-[98.6%] w-32 justify-center rounded-small bg-gradient-to-br from-primary to-secondary">
+						<span className="-bottom-10 absolute text-foreground">
+							Something
+						</span>
+					</div>
+					<div className="relative flex h-[87.0%] w-32 justify-center rounded-small bg-gradient-to-br from-warning to-danger">
+						<span className="-bottom-10 absolute text-foreground">
+							Something
+						</span>
+					</div>
+					<div className="relative flex h-[95.2%] w-32 justify-center rounded-small bg-gradient-to-br from-danger to-secondary">
+						<span className="-bottom-10 absolute text-foreground">
+							Something
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+});
 
 const Performance = () => (
 	<div className="mt-42 w-full">
@@ -38,6 +84,7 @@ const Performance = () => (
 					</div>
 				</div>
 			</div>
+			<Chart />
 		</div>
 	</div>
 );
