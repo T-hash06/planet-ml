@@ -3,6 +3,7 @@ import { Background } from './components/background/background.component';
 import { KeyFeatures } from './components/key-features/key-features.component';
 import { PageDescription } from './components/page-description/page-description';
 import { PageTitle } from './components/page-title/page-title.component';
+import { Performance } from './components/performance/performance.component';
 import { Stats } from './components/stats/stats.component';
 
 export function meta() {
@@ -24,6 +25,7 @@ const HomePage = memo(() => {
 			<PageDescription />
 			<Stats />
 			<KeyFeatures />
+			<Performance />
 		</main>
 	);
 });

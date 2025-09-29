@@ -1,5 +1,5 @@
 import { cn } from '@heroui/react';
-import { NumberTicker } from '@shared/components/number-ticker.component';
+import { NumberTicker } from '@shared/components/number-ticker/number-ticker.component';
 import { motion, useInView } from 'framer-motion';
 import { memo, useRef } from 'react';
 

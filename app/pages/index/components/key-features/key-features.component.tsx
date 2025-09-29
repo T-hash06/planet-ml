@@ -140,7 +140,7 @@ const KeyFeatures = () => {
 
 			<motion.div
 				variants={containerVariants}
-				className="mt-16 flex h-48 items-center gap-12 text-foreground"
+				className="mt-16 flex h-48 items-center gap-10 text-foreground"
 			>
 				<FeatureCard
 					icon={MagnifyingGlassIcon}
