@@ -98,7 +98,7 @@ const Stats = memo(() => {
 			initial="hidden"
 			animate={isInView ? 'visible' : 'hidden'}
 			variants={containerVariants}
-			className="mt-24 flex h-36 gap-16 text-center"
+			className="mt-24 flex h-36 justify-center gap-16 text-center"
 		>
 			<StatCard
 				value={5235}

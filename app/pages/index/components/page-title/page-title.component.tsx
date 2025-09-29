@@ -2,7 +2,7 @@ import { cn } from '@heroui/react';
 
 const PageTitle = () => {
 	return (
-		<h1 className="mt-32 flex flex-col text-center font-extrabold text-[6rem] text-foreground/80 leading-[6rem]">
+		<h1 className="relative z-10 mt-32 flex flex-col text-center font-extrabold text-[6rem] text-foreground/80 leading-[6rem]">
 			<span>Undercover</span>
 			<span>
 				new{' '}

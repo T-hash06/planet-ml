@@ -19,7 +19,7 @@ export function meta() {
 
 const HomePage = memo(() => {
 	return (
-		<main className="h-dvh w-dvw place-items-center overflow-x-hidden pb-16">
+		<main className="h-dvh w-dvw overflow-x-hidden pb-16">
 			<Background />
 			<PageTitle />
 			<PageDescription />

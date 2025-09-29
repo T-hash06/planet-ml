@@ -119,13 +119,13 @@ const KeyFeatures = () => {
 			initial="hidden"
 			animate={isInView ? 'visible' : 'hidden'}
 			variants={containerVariants}
-			className="mt-42 tracking-wider"
+			className="mt-42"
 		>
 			{/** biome-ignore lint/correctness/useUniqueElementIds: Because this is a static page */}
 			<motion.h2
 				id="key-features"
 				variants={titleVariants}
-				className="text-center font-bold text-4xl text-foreground"
+				className="text-center font-bold text-4xl text-foreground tracking-wider"
 			>
 				Key Features
 			</motion.h2>
@@ -140,7 +140,7 @@ const KeyFeatures = () => {
 
 			<motion.div
 				variants={containerVariants}
-				className="mt-16 flex h-48 items-center gap-10 text-foreground"
+				className="mt-16 flex h-48 items-center justify-center gap-10 text-foreground"
 			>
 				<FeatureCard
 					icon={MagnifyingGlassIcon}
