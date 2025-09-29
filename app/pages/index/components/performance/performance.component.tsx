@@ -1,9 +1,10 @@
+import { cn } from '@heroui/react';
 import { CompassIcon } from '@phosphor-icons/react';
 import { memo } from 'react';
 
 const Chart = memo(() => {
 	return (
-		<div className="col-span-2 h-[28rem] rounded-large bg-content2 p-8 pt-6 pb-32">
+		<div className="col-span-2 h-[28rem] rounded-large bg-content2 p-8 pt-6 pb-32 shadow-small">
 			<h3 className="mb-8 w-full text-center font-bold text-2xl text-foreground">
 				Performance Metrics
 			</h3>
@@ -58,11 +59,16 @@ const Performance = () => (
 		</p>
 
 		<div className="mx-auto mt-16 grid w-full max-w-5xl grid-cols-[1fr_3fr] gap-10">
-			<div className="flex h-full w-full flex-col items-center justify-center gap-2 place-self-center rounded-large bg-content2">
+			<div
+				className={cn([
+					'flex h-full w-full flex-col items-center justify-center gap-2 place-self-center rounded-large bg-content2',
+					'shadow-small',
+				])}
+			>
 				<span className="font-bold text-5xl text-foreground">96.8%</span>
 				<p className="text-foreground/60">Accuracy</p>
 			</div>
-			<div className="flex h-max flex-col gap-y-4 rounded-large bg-content2 p-6">
+			<div className="flex h-max flex-col gap-y-4 rounded-large bg-content2 p-6 shadow-small">
 				<h3 className="font-bold text-2xl text-foreground">
 					Training Methodology
 				</h3>

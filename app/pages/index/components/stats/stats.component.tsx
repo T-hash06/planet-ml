@@ -60,9 +60,9 @@ const StatCard = ({
 		className={cn([
 			'grid h-full w-72 grid-rows-[50%_2rem_1fr] rounded-large border p-4 backdrop-blur-lg',
 			color === 'primary' &&
-				'border-primary/20 bg-gradient-to-b from-primary/10 to-primary/5',
+				'0px 12px -3px] border-primary/70 bg-gradient-to-b from-primary/10 to-primary/5 shadow-[10px_10px_48px_-10px] shadow-primary/20',
 			color === 'secondary' &&
-				'border-secondary/20 bg-gradient-to-b from-secondary/10 to-secondary/5',
+				'border-secondary/70 bg-gradient-to-b from-secondary/10 to-secondary/5 shadow-[10px_10px_48px_-10px] shadow-secondary/20',
 		])}
 	>
 		<div

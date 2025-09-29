@@ -90,13 +90,13 @@ const FeatureCard = ({ icon: Icon, title, description }: FeatureCardProps) => (
 			transition: { duration: 0.2 },
 		}}
 		className={cn([
-			'grid h-full w-64 cursor-pointer grid-rows-[30%_3rem_1fr] rounded-large bg-content2 p-5 text-center',
+			'grid h-full w-64 cursor-pointer grid-rows-[30%_3rem_1fr] rounded-large bg-content2 p-5 text-center shadow-small',
 		])}
 	>
 		<motion.span
 			className={cn([
 				'flex aspect-square h-full items-center justify-center place-self-center rounded-full',
-				'bg-gradient-to-br from-secondary to-primary',
+				'bg-gradient-to-br from-secondary to-primary text-background dark:text-foreground',
 			])}
 		>
 			<Icon size={24} weight="duotone" />
