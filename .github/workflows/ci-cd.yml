@@ -1,0 +1,60 @@
+name: CI/CD Frontend - Azure Container Apps (Prebuilt)
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  ACR_NAME: doppleracr123
+  RESOURCE_GROUP: nsac-rg
+  ENVIRONMENT: nsac-env
+  CONTAINER_APP_NAME: frontend-nsac
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1️⃣ Descargar código fuente
+      - uses: actions/checkout@v4
+
+      # 2️⃣ Instalar dependencias y compilar React
+      - name: Build React app
+        run: |
+          npm ci
+          npm run build
+
+      # 3️⃣ Login en Azure
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # 4️⃣ Login al ACR
+      - name: Login to ACR
+        uses: azure/docker-login@v2
+        with:
+          login-server: ${{ env.ACR_NAME }}.azurecr.io
+
+      # 5️⃣ Crear una carpeta temporal con el build + Dockerfile
+      - name: Prepare Docker context
+        run: |
+          mkdir deploy
+          cp -r build dockerfile deploy/
+
+      # 6️⃣ Construir y subir la imagen al ACR (usando solo el build)
+      - name: Build and push image to ACR
+        uses: docker/build-push-action@v4
+        with:
+          context: ./deploy
+          push: true
+          tags: ${{ env.ACR_NAME }}.azurecr.io/frontend:${{ github.sha }}
+
+      # 7️⃣ Desplegar en Azure Container Apps
+      - name: Deploy to Azure Container Apps
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          acrName: ${{ env.ACR_NAME }}
+          resourceGroup: ${{ env.RESOURCE_GROUP }}
+          containerAppName: ${{ env.CONTAINER_APP_NAME }}
+          environment: ${{ env.ENVIRONMENT }}
+          imageToDeploy: ${{ env.ACR_NAME }}.azurecr.io/frontend:${{ github.sha }}
