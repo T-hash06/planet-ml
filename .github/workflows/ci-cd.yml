@@ -17,11 +17,15 @@ jobs:
       # 1️⃣ Descargar código fuente
       - uses: actions/checkout@v4
 
-      # 2️⃣ Instalar dependencias y compilar React
+      # 2️⃣ Instalar dependencias y compilar React (usa pnpm porque hay pnpm-lock.yaml)
       - name: Build React app
         run: |
-          npm ci
-          npm run build
+          # Habilitar corepack y activar pnpm (recomendado en entornos CI con Node >= 16)
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          # Instalar usando el lockfile de pnpm y compilar
+          pnpm install --frozen-lockfile
+          pnpm run build
 
       # 3️⃣ Login en Azure
       - name: Login to Azure
@@ -40,6 +44,8 @@ jobs:
         run: |
           mkdir deploy
           cp -r build dockerfile deploy/
+          # Si el repo usa 'dockerfile' (kebab-case), renombrar dentro del contexto a 'Dockerfile'
+          if [ -f deploy/dockerfile ]; then mv deploy/dockerfile deploy/Dockerfile; fi
 
       # 6️⃣ Construir y subir la imagen al ACR (usando solo el build)
       - name: Build and push image to ACR
