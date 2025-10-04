@@ -42,7 +42,7 @@ const PageDescription = () => (
 				className={cn([
 					'relative overflow-hidden border-2 border-primary/50',
 					'bg-gradient-to-br from-primary/90 via-secondary/90 to-primary/90',
-					'text-white font-semibold shadow-lg shadow-primary/50',
+					'text-foreground font-semibold shadow-lg shadow-primary/50',
 					'hover:shadow-xl hover:shadow-primary/60 transition-all duration-300',
 					'dark:border-primary/70 dark:shadow-primary/40',
 				])}
@@ -50,7 +50,7 @@ const PageDescription = () => (
 				<span className="relative z-10">Start Exploring</span>
 				{/* Animated shimmer effect */}
 				<motion.div
-					className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+					className="absolute inset-0 bg-gradient-to-r from-transparent via-foreground/30 to-transparent"
 					initial={{ x: '-100%' }}
 					animate={{ x: '200%' }}
 					transition={{

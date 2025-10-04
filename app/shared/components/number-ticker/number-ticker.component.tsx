@@ -55,7 +55,7 @@ const NumberTicker = ({
 		<span
 			ref={ref}
 			className={cn(
-				'inline-block text-black tabular-nums tracking-wider dark:text-white',
+				'inline-block text-foreground tabular-nums tracking-wider dark:text-foreground',
 				className,
 			)}
 			{...props}

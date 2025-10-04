@@ -120,9 +120,9 @@ const FeatureCard = memo(function FeatureCard({
 				className={cn([
 					'relative z-10 flex aspect-square h-full items-center justify-center place-self-center rounded-full',
 					'bg-gradient-to-br from-secondary via-primary to-secondary',
-					'text-white dark:text-white',
+					'text-foreground dark:text-foreground',
 					'shadow-lg shadow-primary/50',
-					'border-2 border-white/20',
+					'border-2 border-foreground/20',
 				])}
 			>
 				{/* Glow effect */}

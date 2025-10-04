@@ -1,11 +1,11 @@
 import { cn } from '@heroui/react';
 import {
-	GithubLogo,
-	GraduationCap,
-	LinkedinLogo,
-	MapPin,
-	RocketLaunch,
-	Users,
+	GithubLogoIcon,
+	GraduationCapIcon,
+	LinkedinLogoIcon,
+	MapPinIcon,
+	RocketLaunchIcon,
+	UsersIcon,
 } from '@phosphor-icons/react';
 import { motion, useInView } from 'framer-motion';
 import { memo, useRef } from 'react';
@@ -60,15 +60,15 @@ const Footer = memo(() => {
 	const socialLinks = [
 		{
 			name: 'GitHub',
-			icon: GithubLogo,
+			icon: GithubLogoIcon,
 			href: '#TODO',
 			color: 'from-foreground to-foreground/80',
 		},
 		{
 			name: 'LinkedIn',
-			icon: LinkedinLogo,
+			icon: LinkedinLogoIcon,
 			href: '#TODO',
-			color: 'from-primary to-secondary',
+			color: 'from-primary to-secondary text-foreground',
 		},
 	];
 
@@ -119,20 +119,20 @@ const Footer = memo(() => {
 								whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
 								transition={{ duration: 0.5 }}
 								className={cn([
-									'relative flex items-center justify-center rounded-full',
+									'relative flex items-center justify-center rounded-full shrink-0',
 									'bg-gradient-to-br from-danger via-warning to-danger',
 									'shadow-lg shadow-danger/50',
-									'border-2 border-white/20',
+									'border-2 border-foreground/20',
 									'w-12 h-12 sm:w-14 sm:h-14',
 								])}
 							>
 								{/* Glow effect */}
 								<div className="absolute inset-0 animate-pulse rounded-full bg-gradient-to-br from-danger to-warning opacity-50 blur-md" />
-								<span className="relative z-10">
-									<RocketLaunch
+								<span className="relative z-10 flex items-center justify-center">
+									<RocketLaunchIcon
 										size={28}
 										weight="duotone"
-										className="text-white"
+										className="text-foreground"
 									/>
 								</span>
 							</motion.span>
@@ -179,17 +179,17 @@ const Footer = memo(() => {
 									'relative flex items-center justify-center rounded-full',
 									'bg-gradient-to-br from-primary via-secondary to-primary',
 									'shadow-lg shadow-primary/50',
-									'border-2 border-white/20',
+									'border-2 border-foreground/20',
 									'w-12 h-12 sm:w-14 sm:h-14',
 								])}
 							>
 								{/* Glow effect */}
 								<div className="absolute inset-0 animate-pulse rounded-full bg-gradient-to-br from-primary to-secondary opacity-50 blur-md" />
-								<span className="relative z-10">
-									<GraduationCap
+								<span className="relative z-10 flex items-center justify-center">
+									<GraduationCapIcon
 										size={28}
 										weight="duotone"
-										className="text-white"
+										className="text-foreground"
 									/>
 								</span>
 							</motion.span>
@@ -233,14 +233,18 @@ const Footer = memo(() => {
 									'relative flex items-center justify-center rounded-full',
 									'bg-gradient-to-br from-secondary via-primary to-secondary',
 									'shadow-lg shadow-secondary/50',
-									'border-2 border-white/20',
+									'border-2 border-foreground/20',
 									'w-12 h-12 sm:w-14 sm:h-14',
 								])}
 							>
 								{/* Glow effect */}
 								<div className="absolute inset-0 animate-pulse rounded-full bg-gradient-to-br from-secondary to-primary opacity-50 blur-md" />
-								<span className="relative z-10">
-									<Users size={28} weight="duotone" className="text-white" />
+								<span className="relative z-10 flex items-center justify-center">
+									<UsersIcon
+										size={28}
+										weight="duotone"
+										className="text-foreground"
+									/>
 								</span>
 							</motion.span>
 							<h3
@@ -312,7 +316,7 @@ const Footer = memo(() => {
 				>
 					{/* Location Info */}
 					<div className="flex items-center gap-2">
-						<MapPin
+						<MapPinIcon
 							weight="duotone"
 							className="text-warning w-5 h-5 sm:w-6 sm:h-6"
 						/>
@@ -344,8 +348,9 @@ const Footer = memo(() => {
 									'relative flex items-center justify-center rounded-full',
 									`bg-gradient-to-br ${social.color}`,
 									'shadow-lg',
-									'border-2 border-white/20',
-									'w-10 h-10 sm:w-11 sm:h-11',
+									'border-2 border-foreground/20',
+									'aspect-square',
+									'w-10 sm:w-11',
 									'transition-all duration-300',
 								])}
 								aria-label={social.name}
@@ -360,7 +365,7 @@ const Footer = memo(() => {
 								<social.icon
 									size={24}
 									weight="duotone"
-									className="relative z-10 text-white"
+									className="relative z-10"
 								/>
 							</motion.a>
 						))}

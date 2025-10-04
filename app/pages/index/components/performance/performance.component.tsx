@@ -213,7 +213,7 @@ const Chart = memo(({ isInView }: { isInView: boolean }) => {
 								bar.gradient,
 								'w-16 sm:w-24 md:w-32',
 								'shadow-lg',
-								'border border-white/10',
+								'border border-foreground/10',
 							])}
 						>
 							{/* Bar glow effect */}
@@ -448,7 +448,7 @@ const Performance = () => {
 								'relative flex items-center justify-center rounded-full',
 								'bg-gradient-to-br from-secondary via-primary to-secondary',
 								'shadow-lg shadow-primary/40',
-								'border-2 border-white/20',
+								'border-2 border-foreground/20',
 								'w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20',
 							])}
 						>
@@ -457,7 +457,7 @@ const Performance = () => {
 							<CompassIcon
 								weight="duotone"
 								className={cn([
-									'relative z-10 text-white',
+									'relative z-10 text-foreground',
 									'w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10',
 								])}
 							/>
