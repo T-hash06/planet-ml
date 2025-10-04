@@ -3,6 +3,7 @@ import { memo } from 'react';
 import { Background } from './components/background/background.component';
 import { Footer } from './components/footer/footer.component';
 import { KeyFeatures } from './components/key-features/key-features.component';
+import { LivePreview } from './components/live-preview/live-preview.component';
 import { PageDescription } from './components/page-description/page-description';
 import { PageTitle } from './components/page-title/page-title.component';
 import { Performance } from './components/performance/performance.component';
@@ -28,6 +29,7 @@ const HomePage = memo(() => {
 			<PageDescription />
 			<Stats />
 			<KeyFeatures />
+			<LivePreview />
 			<Performance />
 			<Footer />
 		</main>
