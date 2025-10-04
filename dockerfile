@@ -15,8 +15,8 @@ COPY build ./build
 
 # Azure Container Apps usa PORT como variable de entorno
 ENV NODE_ENV=production
-ENV PORT=8080
-EXPOSE 8080
+ENV PORT=3000
+EXPOSE 3000
 
 # Ejecutar el servidor SSR de React Router usando pnpm
 # React Router serve busca los assets en build/client automáticamente
