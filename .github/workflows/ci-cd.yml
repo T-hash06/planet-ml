@@ -1,11 +1,12 @@
-name: CI/CD Frontend - Azure Container Apps (Prebuilt)
+name: CI/CD Frontend - Azure Container Apps (GHCR)
 
 on:
   push:
     branches: [ main ]
 
 env:
-  ACR_NAME: doppleracr123
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
   RESOURCE_GROUP: nsac-rg
   ENVIRONMENT: nsac-env
   CONTAINER_APP_NAME: frontend-nsac
@@ -13,6 +14,9 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       # 1️⃣ Descargar código fuente
       - uses: actions/checkout@v4
@@ -27,40 +31,45 @@ jobs:
           pnpm install --frozen-lockfile
           pnpm run build
 
-      # 3️⃣ Login en Azure
+      # 3️⃣ Login a GitHub Container Registry
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # 4️⃣ Crear una carpeta temporal con el build + Dockerfile + package files
+      - name: Prepare Docker context
+        run: |
+          mkdir deploy
+          cp -r build dockerfile package.json pnpm-lock.yaml deploy/
+          # Si el repo usa 'dockerfile' (kebab-case), renombrar dentro del contexto a 'Dockerfile'
+          if [ -f deploy/dockerfile ]; then mv deploy/dockerfile deploy/Dockerfile; fi
+
+      # 5️⃣ Construir y subir la imagen a GHCR
+      - name: Build and push image to GHCR
+        uses: docker/build-push-action@v5
+        with:
+          context: ./deploy
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+      # 6️⃣ Login en Azure
       - name: Login to Azure
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # 4️⃣ Login al ACR
-      - name: Login to ACR
-        uses: azure/docker-login@v2
-        with:
-          login-server: ${{ env.ACR_NAME }}.azurecr.io
-
-      # 5️⃣ Crear una carpeta temporal con el build + Dockerfile
-      - name: Prepare Docker context
-        run: |
-          mkdir deploy
-          cp -r build dockerfile deploy/
-          # Si el repo usa 'dockerfile' (kebab-case), renombrar dentro del contexto a 'Dockerfile'
-          if [ -f deploy/dockerfile ]; then mv deploy/dockerfile deploy/Dockerfile; fi
-
-      # 6️⃣ Construir y subir la imagen al ACR (usando solo el build)
-      - name: Build and push image to ACR
-        uses: docker/build-push-action@v4
-        with:
-          context: ./deploy
-          push: true
-          tags: ${{ env.ACR_NAME }}.azurecr.io/frontend:${{ github.sha }}
-
-      # 7️⃣ Desplegar en Azure Container Apps
+      # 7️⃣ Desplegar en Azure Container Apps (usando imagen de GHCR)
       - name: Deploy to Azure Container Apps
         uses: azure/container-apps-deploy-action@v1
         with:
-          acrName: ${{ env.ACR_NAME }}
           resourceGroup: ${{ env.RESOURCE_GROUP }}
           containerAppName: ${{ env.CONTAINER_APP_NAME }}
-          environment: ${{ env.ENVIRONMENT }}
-          imageToDeploy: ${{ env.ACR_NAME }}.azurecr.io/frontend:${{ github.sha }}
+          imageToDeploy: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          registryUrl: ${{ env.REGISTRY }}
+          registryUsername: ${{ github.actor }}
+          registryPassword: ${{ secrets.GITHUB_TOKEN }}
