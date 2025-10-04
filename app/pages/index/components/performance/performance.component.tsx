@@ -75,9 +75,13 @@ const Chart = memo(({ isInView }: { isInView: boolean }) => {
 				ease: 'easeOut',
 			}}
 			className={cn([
-				'col-span-1 md:col-span-2 rounded-large bg-content2 shadow-small',
+				'relative col-span-1 md:col-span-2 rounded-large overflow-hidden',
 				'h-[20rem] sm:h-[24rem] md:h-[28rem]',
 				'p-4 pt-3 pb-16 sm:p-6 sm:pt-4 sm:pb-20 md:p-8 md:pt-6 md:pb-32',
+				'bg-gradient-to-br from-content2 to-content1',
+				'border border-divider/50',
+				'shadow-lg',
+				'backdrop-blur-sm',
 			])}
 		>
 			<motion.h3
@@ -200,15 +204,26 @@ const Chart = memo(({ isInView }: { isInView: boolean }) => {
 							}}
 							whileHover={{
 								scale: 1.05,
+								y: -8,
 								transition: { duration: 0.2 },
 							}}
 							className={cn([
-								'relative flex justify-center rounded-small bg-gradient-to-br',
+								'relative flex justify-center rounded-medium bg-gradient-to-br',
 								bar.height,
 								bar.gradient,
 								'w-16 sm:w-24 md:w-32',
+								'shadow-lg',
+								'border border-white/10',
 							])}
 						>
+							{/* Bar glow effect */}
+							<div
+								className={cn([
+									'absolute inset-0 rounded-medium bg-gradient-to-br opacity-50 blur-md',
+									bar.gradient,
+								])}
+							/>
+
 							<motion.span
 								initial={{ opacity: 0, y: 10 }}
 								animate={
@@ -220,7 +235,7 @@ const Chart = memo(({ isInView }: { isInView: boolean }) => {
 									ease: 'easeOut',
 								}}
 								className={cn([
-									'absolute text-foreground',
+									'absolute text-foreground font-medium',
 									'-bottom-6 text-tiny sm:-bottom-8 sm:text-small md:-bottom-10 md:text-medium',
 								])}
 							>
@@ -238,7 +253,7 @@ const Performance = () => {
 	const ref = useRef(null);
 	const isInView = useInView(ref, {
 		once: true,
-		margin: '-100px 0px -100px 0px',
+		margin: '-150px 0px -150px 0px',
 	});
 
 	return (
@@ -249,22 +264,30 @@ const Performance = () => {
 			variants={containerVariants}
 			className={cn([
 				'w-full',
-				'sm:mt-16 sm:px-6',
-				'md:mt-20 md:px-8',
-				'lg:mt-24 lg:px-12',
-				'xl:mt-32 xl:px-16',
+				'mt-24 px-4',
+				'sm:mt-32 sm:px-6',
+				'md:mt-40 md:px-8',
+				'lg:mt-48 lg:px-12',
+				'xl:mt-56 xl:px-16',
 			])}
 		>
-			<h2
+			<motion.h2
+				initial={{ opacity: 0, y: 20 }}
+				animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+				transition={{ duration: 0.6 }}
 				className={cn([
-					'text-center font-bold text-foreground',
+					'text-center font-bold text-foreground tracking-tight',
 					'text-2xl sm:text-3xl md:text-4xl',
+					'drop-shadow-[0_2px_10px_rgba(0,0,0,0.2)]',
 				])}
 			>
 				AI Performance
-			</h2>
+			</motion.h2>
 
-			<p
+			<motion.p
+				initial={{ opacity: 0, y: 15 }}
+				animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+				transition={{ duration: 0.6, delay: 0.2 }}
 				className={cn([
 					'mx-auto text-center font-light text-foreground/75',
 					'mt-4 sm:mt-5 md:mt-6',
@@ -274,10 +297,11 @@ const Performance = () => {
 					'leading-6 sm:leading-7',
 				])}
 			>
-				Our model, `ModelName`, is trained on terabytes of cosmic data to
-				identify exoplanet candidates with an impressive accuracy rate of 96.8%.
-				This
-			</p>
+				Our model, <span className="font-semibold text-primary">ModelName</span>
+				, is trained on terabytes of cosmic data to identify exoplanet
+				candidates with an impressive accuracy rate of{' '}
+				<span className="font-bold text-secondary">96.8%</span>.
+			</motion.p>
 
 			<motion.div
 				variants={containerVariants}
@@ -298,16 +322,28 @@ const Performance = () => {
 						ease: 'easeOut',
 					}}
 					whileHover={{
-						scale: 1.02,
-						transition: { duration: 0.2 },
+						scale: 1.05,
+						y: -5,
+						transition: { duration: 0.3 },
 					}}
 					className={cn([
-						'flex w-full flex-col items-center justify-center place-self-center rounded-large bg-content2 shadow-small',
+						'relative flex w-full flex-col items-center justify-center place-self-center rounded-large overflow-hidden',
 						'h-32 sm:h-36 md:h-full',
 						'gap-1 sm:gap-2',
 						'p-4 sm:p-6',
+						'bg-gradient-to-br from-secondary/20 via-primary/15 to-secondary/20',
+						'border border-primary/30',
+						'shadow-lg shadow-primary/30',
+						'backdrop-blur-sm',
 					])}
 				>
+					{/* Animated gradient background */}
+					<motion.div
+						className="absolute inset-0 bg-gradient-to-br from-secondary/30 to-primary/30 opacity-0"
+						whileHover={{ opacity: 1 }}
+						transition={{ duration: 0.3 }}
+					/>
+
 					<motion.span
 						initial={{ opacity: 0, scale: 0.5, filter: 'blur(4px)' }}
 						animate={
@@ -317,8 +353,9 @@ const Performance = () => {
 						}
 						transition={{ duration: 0.6, delay: 0.6, ease: 'easeOut' }}
 						className={cn([
-							'font-bold text-foreground',
+							'relative z-10 font-bold bg-gradient-to-br from-secondary-600 to-primary-600 bg-clip-text text-transparent',
 							'text-3xl sm:text-4xl md:text-5xl',
+							'drop-shadow-[0_0_20px_rgba(100,100,255,0.5)]',
 						])}
 					>
 						96.8%
@@ -327,10 +364,16 @@ const Performance = () => {
 						initial={{ opacity: 0, y: 10 }}
 						animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
 						transition={{ duration: 0.4, delay: 0.8, ease: 'easeOut' }}
-						className={cn(['text-foreground/60', 'text-small sm:text-medium'])}
+						className={cn([
+							'relative z-10 text-foreground/80 font-medium',
+							'text-small sm:text-medium',
+						])}
 					>
 						Accuracy
 					</motion.p>
+
+					{/* Corner decoration */}
+					<div className="absolute top-0 right-0 h-16 w-16 bg-gradient-to-bl from-primary/30 to-transparent" />
 				</motion.div>
 
 				<motion.div
@@ -341,15 +384,31 @@ const Performance = () => {
 						ease: 'easeOut',
 					}}
 					whileHover={{
-						scale: 1.01,
-						transition: { duration: 0.2 },
+						scale: 1.02,
+						y: -5,
+						transition: { duration: 0.3 },
 					}}
 					className={cn([
-						'flex h-max flex-col rounded-large bg-content2 shadow-small',
-						'gap-y-2 sm:gap-y-3 md:gap-y-4',
-						'p-4 sm:p-5 md:p-6',
+						'relative flex h-max flex-col rounded-large overflow-hidden',
+						'gap-y-3 sm:gap-y-4 md:gap-y-5',
+						'p-5 sm:p-6 md:p-8',
+						'bg-gradient-to-br from-content2 to-content1',
+						'border border-divider/50',
+						'shadow-medium hover:shadow-large transition-all duration-300',
+						'backdrop-blur-sm',
 					])}
 				>
+					{/* Hover glow effect */}
+					<motion.div
+						className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0"
+						whileHover={{ opacity: 1 }}
+						transition={{ duration: 0.3 }}
+					/>
+
+					{/* Corner decorations */}
+					<div className="absolute top-0 right-0 h-20 w-20 bg-gradient-to-bl from-primary/20 to-transparent" />
+					<div className="absolute bottom-0 left-0 h-16 w-16 bg-gradient-to-tr from-secondary/15 to-transparent" />
+
 					<motion.h3
 						initial={{ opacity: 0, x: 20, filter: 'blur(3px)' }}
 						animate={
@@ -359,16 +418,17 @@ const Performance = () => {
 						}
 						transition={{ duration: 0.5, delay: 0.8, ease: 'easeOut' }}
 						className={cn([
-							'font-bold text-foreground',
+							'relative z-10 font-bold text-foreground',
 							'text-large sm:text-xl md:text-2xl',
+							'drop-shadow-[0_2px_8px_rgba(0,0,0,0.15)]',
 						])}
 					>
 						Training Methodology
 					</motion.h3>
 					<div
 						className={cn([
-							'grid gap-3 sm:gap-4',
-							'grid-cols-[4rem_1fr] sm:grid-cols-[5rem_1fr] md:grid-cols-[6rem_1fr]',
+							'relative z-10 grid gap-4 sm:gap-5',
+							'grid-cols-[auto_1fr]',
 						])}
 					>
 						<motion.div
@@ -379,16 +439,30 @@ const Performance = () => {
 									: { opacity: 0, rotate: -45, scale: 0.8 }
 							}
 							transition={{ duration: 0.6, delay: 1.0, ease: 'easeOut' }}
-							className="grid aspect-square w-full place-items-center"
+							whileHover={{
+								rotate: [0, -10, 10, -10, 0],
+								scale: 1.1,
+								transition: { duration: 0.5 },
+							}}
+							className={cn([
+								'relative flex items-center justify-center rounded-full',
+								'bg-gradient-to-br from-secondary via-primary to-secondary',
+								'shadow-lg shadow-primary/40',
+								'border-2 border-white/20',
+								'w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20',
+							])}
 						>
+							{/* Icon glow effect */}
+							<div className="absolute inset-0 animate-pulse rounded-full bg-gradient-to-br from-secondary to-primary opacity-40 blur-md" />
 							<CompassIcon
+								weight="duotone"
 								className={cn([
-									'text-secondary',
-									'w-[32px] h-[32px] sm:w-[42px] sm:h-[42px] md:w-[58px] md:h-[58px]',
+									'relative z-10 text-white',
+									'w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10',
 								])}
 							/>
 						</motion.div>
-						<div>
+						<div className="flex flex-col gap-2">
 							<motion.h4
 								initial={{ opacity: 0, y: 15, filter: 'blur(2px)' }}
 								animate={
@@ -398,11 +472,11 @@ const Performance = () => {
 								}
 								transition={{ duration: 0.5, delay: 1.1, ease: 'easeOut' }}
 								className={cn([
-									'font-semibold text-foreground',
-									'text-medium sm:text-large',
+									'font-bold text-foreground',
+									'text-medium sm:text-large md:text-xl',
 								])}
 							>
-								Cosmic data recalibration
+								Cosmic Data Recalibration
 							</motion.h4>
 							<motion.p
 								initial={{ opacity: 0, y: 10, filter: 'blur(2px)' }}
@@ -413,15 +487,17 @@ const Performance = () => {
 								}
 								transition={{ duration: 0.5, delay: 1.2, ease: 'easeOut' }}
 								className={cn([
-									'mt-1 text-foreground/80',
-									'text-tiny sm:text-small',
+									'text-foreground/80 leading-relaxed',
+									'text-small sm:text-medium',
 								])}
 							>
-								Our model employs a proprietary technique called Cosmic Data
-								Recalibration (CDR). This method filters stellar noise and
-								enhances faint transit signals from distant exoplanets,
-								significantly improving detection sensitivity and reducing false
-								positives.
+								Our model employs a proprietary technique called{' '}
+								<span className="font-semibold text-primary">
+									Cosmic Data Recalibration (CDR)
+								</span>
+								. This method filters stellar noise and enhances faint transit
+								signals from distant exoplanets, significantly improving
+								detection sensitivity and reducing false positives.
 							</motion.p>
 						</div>
 					</div>

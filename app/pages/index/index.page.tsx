@@ -1,5 +1,7 @@
+import { StarsBackground } from '@shared/components/stars-background/stars-background.component';
 import { memo } from 'react';
 import { Background } from './components/background/background.component';
+import { Footer } from './components/footer/footer.component';
 import { KeyFeatures } from './components/key-features/key-features.component';
 import { PageDescription } from './components/page-description/page-description';
 import { PageTitle } from './components/page-title/page-title.component';
@@ -19,13 +21,15 @@ export function meta() {
 
 const HomePage = memo(() => {
 	return (
-		<main className="h-dvh w-dvw overflow-x-hidden pb-16">
+		<main className="h-dvh w-dvw overflow-x-hidden">
+			<StarsBackground />
 			<Background />
 			<PageTitle />
 			<PageDescription />
 			<Stats />
 			<KeyFeatures />
 			<Performance />
+			<Footer />
 		</main>
 	);
 });

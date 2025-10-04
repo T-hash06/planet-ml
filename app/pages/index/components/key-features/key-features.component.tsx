@@ -92,25 +92,49 @@ const FeatureCard = memo(function FeatureCard({
 			variants={cardVariants}
 			whileHover={{
 				scale: 1.05,
-				transition: { duration: 0.2 },
+				y: -8,
+				transition: { duration: 0.3, ease: 'easeOut' },
 			}}
 			className={cn([
-				'grid h-full w-full cursor-pointer grid-rows-[30%_3rem_1fr] rounded-large bg-content2 p-4 text-center shadow-small',
+				'relative grid h-full w-full cursor-pointer grid-rows-[30%_3rem_1fr] rounded-large p-4 text-center',
 				'sm:w-64 sm:p-5',
 				'max-w-sm mx-auto sm:mx-0',
+				'bg-gradient-to-br from-content2 to-content1',
+				'border border-divider/50',
+				'shadow-medium hover:shadow-large transition-shadow duration-300',
+				'backdrop-blur-sm',
+				'overflow-hidden',
 			])}
 		>
+			{/* Animated gradient background on hover */}
+			<motion.div
+				className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/10 to-primary/10 opacity-0"
+				whileHover={{ opacity: 1 }}
+				transition={{ duration: 0.3 }}
+			/>
+
+			{/* Icon container with enhanced styling */}
 			<motion.span
+				whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+				transition={{ duration: 0.5 }}
 				className={cn([
-					'flex aspect-square h-full items-center justify-center place-self-center rounded-full',
-					'bg-gradient-to-br from-secondary to-primary text-background dark:text-foreground',
+					'relative z-10 flex aspect-square h-full items-center justify-center place-self-center rounded-full',
+					'bg-gradient-to-br from-secondary via-primary to-secondary',
+					'text-white dark:text-white',
+					'shadow-lg shadow-primary/50',
+					'border-2 border-white/20',
 				])}
 			>
-				<Icon size={24} weight="duotone" />
+				{/* Glow effect */}
+				<div className="absolute inset-0 animate-pulse rounded-full bg-gradient-to-br from-secondary to-primary opacity-50 blur-md" />
+				<span className="relative z-10">
+					<Icon size={28} weight="duotone" />
+				</span>
 			</motion.span>
+
 			<strong
 				className={cn([
-					'place-self-center font-normal',
+					'relative z-10 place-self-center font-semibold text-foreground',
 					'text-small',
 					'sm:text-medium',
 				])}
@@ -119,13 +143,16 @@ const FeatureCard = memo(function FeatureCard({
 			</strong>
 			<p
 				className={cn([
-					'text-foreground/60 leading-5',
+					'relative z-10 text-foreground/70 leading-5',
 					'text-tiny',
 					'sm:text-small',
 				])}
 			>
 				{description}
 			</p>
+
+			{/* Corner decoration */}
+			<div className="absolute top-0 right-0 h-20 w-20 bg-gradient-to-bl from-primary/10 to-transparent rounded-large" />
 		</motion.div>
 	);
 });
@@ -134,7 +161,7 @@ const KeyFeatures = memo(function KeyFeatures() {
 	const ref = useRef(null);
 	const isInView = useInView(ref, {
 		once: true,
-		margin: '-50px 0px -50px 0px',
+		margin: '-100px 0px -100px 0px',
 	});
 
 	// Memoize features data to prevent unnecessary re-renders
@@ -175,11 +202,11 @@ const KeyFeatures = memo(function KeyFeatures() {
 			animate={isInView ? 'visible' : 'hidden'}
 			variants={containerVariants}
 			className={cn([
-				'mt-12 px-4',
-				'sm:mt-16 sm:px-6',
-				'md:mt-20 md:px-8',
-				'lg:mt-24 lg:px-12',
-				'xl:mt-32 xl:px-16',
+				'mt-24 px-4',
+				'sm:mt-32 sm:px-6',
+				'md:mt-40 md:px-8',
+				'lg:mt-48 lg:px-12',
+				'xl:mt-56 xl:px-16',
 			])}
 		>
 			{/** biome-ignore lint/correctness/useUniqueElementIds: Because this is a static page */}
