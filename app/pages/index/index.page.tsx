@@ -11,6 +11,7 @@ import { Performance } from './components/performance/performance.component';
 import { Stats } from './components/stats/stats.component';
 import { TechnicalArchitecture } from './components/technical-architecture/technical-architecture.component';
 import { TransitMethod } from './components/transit-method/transit-method.component';
+import { UseCases } from './components/use-cases/use-cases.component';
 
 export function meta() {
 	return [
@@ -37,6 +38,7 @@ const HomePage = memo(() => {
 			<TransitMethod />
 			<TechnicalArchitecture />
 			<DataSources />
+			<UseCases />
 			<Footer />
 		</main>
 	);
