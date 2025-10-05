@@ -8,6 +8,7 @@ import { PageDescription } from './components/page-description/page-description'
 import { PageTitle } from './components/page-title/page-title.component';
 import { Performance } from './components/performance/performance.component';
 import { Stats } from './components/stats/stats.component';
+import { TechnicalArchitecture } from './components/technical-architecture/technical-architecture.component';
 import { TransitMethod } from './components/transit-method/transit-method.component';
 
 export function meta() {
@@ -33,6 +34,7 @@ const HomePage = memo(() => {
 			<LivePreview />
 			<Performance />
 			<TransitMethod />
+			<TechnicalArchitecture />
 			<Footer />
 		</main>
 	);
