@@ -2,6 +2,7 @@ import { StarsBackground } from '@shared/components/stars-background/stars-backg
 import { memo } from 'react';
 import { Background } from './components/background/background.component';
 import { DataSources } from './components/data-sources/data-sources.component';
+import { DetectionProcess } from './components/detection-process/detection-process.component';
 import { Footer } from './components/footer/footer.component';
 import { KeyFeatures } from './components/key-features/key-features.component';
 import { LivePreview } from './components/live-preview/live-preview.component';
@@ -39,6 +40,7 @@ const HomePage = memo(() => {
 			<TechnicalArchitecture />
 			<DataSources />
 			<UseCases />
+			<DetectionProcess />
 			<Footer />
 		</main>
 	);
