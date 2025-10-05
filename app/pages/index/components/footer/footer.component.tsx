@@ -49,25 +49,25 @@ const Footer = memo(() => {
 	});
 
 	const teamMembers = [
-		{ name: 'Team Member 1', role: 'ML Engineer' },
-		{ name: 'Team Member 2', role: 'Data Scientist' },
-		{ name: 'Team Member 3', role: 'Full Stack Developer' },
-		{ name: 'Team Member 4', role: 'Backend Developer' },
-		{ name: 'Team Member 5', role: 'Frontend Developer' },
-		{ name: 'Team Member 6', role: 'UI/UX Designer' },
+		{ name: 'Juan Pablo Camargo', role: 'DL/ML Engineer' },
+		{ name: 'Tomas Panqueva', role: 'Full Stack Developer' },
+		{ name: 'Marianella Polo', role: 'Full Stack Developer' },
+		{ name: 'Alejandra Guanga', role: 'Backend Developer' },
+		{ name: 'Daniel Barrera', role: 'Backend Developer' },
+		{ name: 'Julian Moreno', role: 'Mathematician' },
 	];
 
 	const socialLinks = [
 		{
 			name: 'GitHub',
 			icon: GithubLogoIcon,
-			href: '#TODO',
+			href: '#github-repo-url',
 			color: 'from-foreground to-foreground/80',
 		},
 		{
 			name: 'LinkedIn',
 			icon: LinkedinLogoIcon,
-			href: '#TODO',
+			href: '#team-linkedin',
 			color: 'from-primary to-secondary text-foreground',
 		},
 	];
@@ -152,7 +152,7 @@ const Footer = memo(() => {
 								'text-small sm:text-medium',
 							])}
 						>
-							Proud participants of the{' '}
+							Participants in the{' '}
 							<span className="font-semibold text-danger">
 								NASA Space Apps Challenge 2025
 							</span>{' '}
@@ -160,8 +160,9 @@ const Footer = memo(() => {
 							<span className="font-semibold text-warning">
 								Bogotá, Colombia
 							</span>
-							. Our mission is to advance exoplanet detection using cutting-edge
-							AI/ML technologies.
+							. ExoNova advances exoplanet detection using CTAB-GAN+ and Masked
+							Autoencoder technologies trained on Kepler, K2, and TESS mission
+							data.
 						</p>
 					</motion.div>
 
@@ -209,13 +210,13 @@ const Footer = memo(() => {
 								'text-small sm:text-medium',
 							])}
 						>
-							We are students from the{' '}
+							We are engineering students from the{' '}
 							<span className="font-semibold text-primary">
 								Escuela Colombiana de Ingeniería Julio Garavito
 							</span>
-							, one of Colombia's leading engineering institutions, bringing
-							together innovation, science, and technology to solve real-world
-							challenges.
+							, one of Colombia's leading technical universities, applying
+							machine learning to advance space exploration and planetary
+							science.
 						</p>
 					</motion.div>
 
@@ -378,7 +379,7 @@ const Footer = memo(() => {
 							'text-tiny sm:text-small',
 						])}
 					>
-						© 2025 Planet ML. All rights reserved.
+						© 2025 ExoNova. All rights reserved.
 					</p>
 				</motion.div>
 			</div>
