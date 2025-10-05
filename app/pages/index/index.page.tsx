@@ -11,11 +11,11 @@ import { Stats } from './components/stats/stats.component';
 
 export function meta() {
 	return [
-		{ title: 'Planet ML' },
+		{ title: 'ExoNova - AI-Driven Exoplanet Detection' },
 		{
 			name: 'description',
 			content:
-				"Explore the universe's hidden exoplanets using our advanced AI/ML models.",
+				"Discover hidden exoplanets using cutting-edge AI models trained on NASA's Kepler, K2, and TESS mission data. ExoNova combines CTAB-GAN+ and Masked Autoencoder technologies for accurate exoplanet detection.",
 		},
 	];
 }

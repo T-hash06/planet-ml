@@ -27,38 +27,39 @@ const calculatePlanetProbability = async (
 const SLIDER_CONFIGS = [
 	{
 		name: 'plTranmid' as const,
-		label: 'Planet Transit Midpoint',
-		description: 'Average time the planet crosses the stellar limb [BJD]',
+		label: 'Transit Midpoint (BJD)',
+		description:
+			"Time when planet crosses star's center [Barycentric Julian Date]",
 		color: 'primary' as const,
 	},
 	{
 		name: 'stPmdec' as const,
-		label: 'PMDec',
-		description: 'Angular change in declination [mas/yr]',
+		label: 'Stellar Proper Motion (Declination)',
+		description: "Angular change in star's position [mas/year]",
 		color: 'secondary' as const,
 	},
 	{
 		name: 'stTmag' as const,
 		label: 'TESS Magnitude',
-		description: 'Brightness of the host star',
+		description: 'Star brightness in TESS bandpass [dimensionless]',
 		color: 'primary' as const,
 	},
 	{
 		name: 'stRade' as const,
 		label: 'Stellar Radius',
-		description: 'Star radius in Solar radii [R_Sun]',
+		description: 'Star radius relative to Sun [R☉]',
 		color: 'secondary' as const,
 	},
 	{
 		name: 'stDist' as const,
-		label: 'Stellar Distance',
-		description: 'Distance to the system [pc]',
+		label: 'Distance to Star',
+		description: 'Distance from Earth to star system [parsecs]',
 		color: 'primary' as const,
 	},
 	{
 		name: 'plRade' as const,
-		label: 'Planet Radius',
-		description: 'Planet radius in Earth radii [R_Earth]',
+		label: 'Planetary Radius',
+		description: 'Planet radius relative to Earth [R⊕]',
 		color: 'secondary' as const,
 	},
 ];
@@ -159,7 +160,7 @@ const LivePreview = memo(() => {
 							'drop-shadow-[0_0_25px_rgba(100,100,255,0.4)]',
 						])}
 					>
-						Live Preview
+						Interactive Detection Demo
 					</h2>
 					<p
 						className={cn([
@@ -167,8 +168,9 @@ const LivePreview = memo(() => {
 							'max-w-2xl mx-auto',
 						])}
 					>
-						Adjust the parameters below to see the probability of planetary
-						detection
+						Adjust astronomical parameters from real exoplanet observations to
+						see how our MAE model calculates the probability of planetary
+						transit detection.
 					</p>
 				</motion.div>
 
@@ -272,7 +274,7 @@ const LivePreview = memo(() => {
 										'text-center',
 									])}
 								>
-									Planet Detection Probability{' '}
+									Transit Detection Probability
 								</h3>
 								{/* Circular Progress Chart */}
 								<div className="relative">
@@ -324,19 +326,19 @@ const LivePreview = memo(() => {
 											probabilityValue < 25 && 'text-danger',
 										])}
 									>
-										{probabilityValue >= 75 && 'High Probability'}
+										{probabilityValue >= 75 && 'High Confidence Detection'}
 										{probabilityValue >= 50 &&
 											probabilityValue < 75 &&
-											'Moderate Probability'}
+											'Moderate Confidence'}
 										{probabilityValue >= 25 &&
 											probabilityValue < 50 &&
-											'Low Probability'}
-										{probabilityValue < 25 && 'Very Low Probability'}
+											'Low Confidence'}
+										{probabilityValue < 25 && 'Unlikely Detection'}
 									</p>
 									<p className="text-small text-foreground/60">
 										{probabilityValue === 0
 											? 'Adjust parameters and calculate'
-											: 'Based on the input parameters'}
+											: 'MAE model prediction (example calculation)'}
 									</p>
 								</div>
 

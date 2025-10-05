@@ -1,5 +1,4 @@
 import { cn } from '@heroui/react';
-import { CompassIcon } from '@phosphor-icons/react';
 import { motion, useInView } from 'framer-motion';
 import { memo, useRef } from 'react';
 
@@ -97,7 +96,7 @@ const Chart = memo(({ isInView }: { isInView: boolean }) => {
 					'text-large sm:text-xl md:text-2xl',
 				])}
 			>
-				Performance Metrics
+				Detection Pipeline Metrics (Example)
 			</motion.h3>
 			<div className="relative h-full w-full">
 				{Array.from({ length: 5 }, (_, i) => {
@@ -163,20 +162,23 @@ const Chart = memo(({ isInView }: { isInView: boolean }) => {
 					])}
 				>
 					{[
-						{
-							height: 'h-[98.6%]',
-							gradient: 'from-primary to-secondary',
-							label: 'Detection',
-						},
-						{
-							height: 'h-[87.0%]',
-							gradient: 'from-warning to-danger',
-							label: 'Validation',
-						},
+						// TODO: Update with actual light curve anomaly detection metric
 						{
 							height: 'h-[95.2%]',
+							gradient: 'from-primary to-secondary',
+							label: 'Light Curve Anomaly',
+						},
+						// TODO: Update with actual parameter classification metric
+						{
+							height: 'h-[89.4%]',
+							gradient: 'from-warning to-danger',
+							label: 'Parameter Classification',
+						},
+						// TODO: Update with actual combined confidence metric
+						{
+							height: 'h-[92.8%]',
 							gradient: 'from-danger to-secondary',
-							label: 'Classification',
+							label: 'Combined Confidence',
 						},
 					].map((bar, i) => (
 						<motion.div
@@ -235,8 +237,8 @@ const Chart = memo(({ isInView }: { isInView: boolean }) => {
 									ease: 'easeOut',
 								}}
 								className={cn([
-									'absolute text-foreground font-medium',
-									'-bottom-6 text-tiny sm:-bottom-8 sm:text-small md:-bottom-10 md:text-medium',
+									'absolute text-foreground font-medium text-center',
+									'-bottom-8 text-tiny sm:-bottom-10 sm:text-small md:-bottom-14 md:text-medium',
 								])}
 							>
 								{bar.label}
@@ -249,7 +251,7 @@ const Chart = memo(({ isInView }: { isInView: boolean }) => {
 	);
 });
 
-const Performance = () => {
+const Performance = memo(() => {
 	const ref = useRef(null);
 	const isInView = useInView(ref, {
 		once: true,
@@ -281,7 +283,7 @@ const Performance = () => {
 					'drop-shadow-[0_2px_10px_rgba(0,0,0,0.2)]',
 				])}
 			>
-				AI Performance
+				Model Architecture
 			</motion.h2>
 
 			<motion.p
@@ -297,10 +299,10 @@ const Performance = () => {
 					'leading-6 sm:leading-7',
 				])}
 			>
-				Our model, <span className="font-semibold text-primary">ModelName</span>
-				, is trained on terabytes of cosmic data to identify exoplanet
-				candidates with an impressive accuracy rate of{' '}
-				<span className="font-bold text-secondary">96.8%</span>.
+				ExoNova employs two complementary AI models: CTAB-GAN+ for synthetic
+				data generation and missing value imputation, and Masked Autoencoder
+				(MAE) for self-supervised anomaly detection in light curves and tabular
+				data.
 			</motion.p>
 
 			<motion.div
@@ -358,8 +360,9 @@ const Performance = () => {
 							'drop-shadow-[0_0_20px_rgba(100,100,255,0.5)]',
 						])}
 					>
-						96.8%
+						95.2%
 					</motion.span>
+					{/* TODO: Update with actual transit detection rate metric */}
 					<motion.p
 						initial={{ opacity: 0, y: 10 }}
 						animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
@@ -369,7 +372,7 @@ const Performance = () => {
 							'text-small sm:text-medium',
 						])}
 					>
-						Accuracy
+						Transit Detection Rate
 					</motion.p>
 
 					{/* Corner decoration */}
@@ -398,17 +401,6 @@ const Performance = () => {
 						'backdrop-blur-sm',
 					])}
 				>
-					{/* Hover glow effect */}
-					<motion.div
-						className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0"
-						whileHover={{ opacity: 1 }}
-						transition={{ duration: 0.3 }}
-					/>
-
-					{/* Corner decorations */}
-					<div className="absolute top-0 right-0 h-20 w-20 bg-gradient-to-bl from-primary/20 to-transparent" />
-					<div className="absolute bottom-0 left-0 h-16 w-16 bg-gradient-to-tr from-secondary/15 to-transparent" />
-
 					<motion.h3
 						initial={{ opacity: 0, x: 20, filter: 'blur(3px)' }}
 						animate={
@@ -418,94 +410,34 @@ const Performance = () => {
 						}
 						transition={{ duration: 0.5, delay: 0.8, ease: 'easeOut' }}
 						className={cn([
-							'relative z-10 font-bold text-foreground',
+							'font-bold text-foreground',
 							'text-large sm:text-xl md:text-2xl',
-							'drop-shadow-[0_2px_8px_rgba(0,0,0,0.15)]',
 						])}
 					>
-						Training Methodology
+						Dual-Model Approach
 					</motion.h3>
-					<div
+					<motion.p
+						initial={{ opacity: 0, y: 10, filter: 'blur(2px)' }}
+						animate={
+							isInView
+								? { opacity: 1, y: 0, filter: 'blur(0px)' }
+								: { opacity: 0, y: 10, filter: 'blur(2px)' }
+						}
+						transition={{ duration: 0.5, delay: 1.0, ease: 'easeOut' }}
 						className={cn([
-							'relative z-10 grid gap-4 sm:gap-5',
-							'grid-cols-[auto_1fr]',
+							'text-foreground/80 leading-relaxed',
+							'text-small sm:text-medium',
 						])}
 					>
-						<motion.div
-							initial={{ opacity: 0, rotate: -45, scale: 0.8 }}
-							animate={
-								isInView
-									? { opacity: 1, rotate: 0, scale: 1 }
-									: { opacity: 0, rotate: -45, scale: 0.8 }
-							}
-							transition={{ duration: 0.6, delay: 1.0, ease: 'easeOut' }}
-							whileHover={{
-								rotate: [0, -10, 10, -10, 0],
-								scale: 1.1,
-								transition: { duration: 0.5 },
-							}}
-							className={cn([
-								'relative flex items-center justify-center rounded-full',
-								'bg-gradient-to-br from-secondary via-primary to-secondary',
-								'shadow-lg shadow-primary/40',
-								'border-2 border-foreground/20',
-								'w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20',
-							])}
-						>
-							{/* Icon glow effect */}
-							<div className="absolute inset-0 animate-pulse rounded-full bg-gradient-to-br from-secondary to-primary opacity-40 blur-md" />
-							<CompassIcon
-								weight="duotone"
-								className={cn([
-									'relative z-10 text-foreground',
-									'w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10',
-								])}
-							/>
-						</motion.div>
-						<div className="flex flex-col gap-2">
-							<motion.h4
-								initial={{ opacity: 0, y: 15, filter: 'blur(2px)' }}
-								animate={
-									isInView
-										? { opacity: 1, y: 0, filter: 'blur(0px)' }
-										: { opacity: 0, y: 15, filter: 'blur(2px)' }
-								}
-								transition={{ duration: 0.5, delay: 1.1, ease: 'easeOut' }}
-								className={cn([
-									'font-bold text-foreground',
-									'text-medium sm:text-large md:text-xl',
-								])}
-							>
-								Cosmic Data Recalibration
-							</motion.h4>
-							<motion.p
-								initial={{ opacity: 0, y: 10, filter: 'blur(2px)' }}
-								animate={
-									isInView
-										? { opacity: 1, y: 0, filter: 'blur(0px)' }
-										: { opacity: 0, y: 10, filter: 'blur(2px)' }
-								}
-								transition={{ duration: 0.5, delay: 1.2, ease: 'easeOut' }}
-								className={cn([
-									'text-foreground/80 leading-relaxed',
-									'text-small sm:text-medium',
-								])}
-							>
-								Our model employs a proprietary technique called{' '}
-								<span className="font-semibold text-primary">
-									Cosmic Data Recalibration (CDR)
-								</span>
-								. This method filters stellar noise and enhances faint transit
-								signals from distant exoplanets, significantly improving
-								detection sensitivity and reducing false positives.
-							</motion.p>
-						</div>
-					</div>
+						CTAB-GAN+ generates synthetic training data and handles missing
+						values, while MAE performs self-supervised anomaly detection on both
+						time-series light curves and tabular parameters.
+					</motion.p>
 				</motion.div>
 				<Chart isInView={isInView} />
 			</motion.div>
 		</motion.div>
 	);
-};
+});
 
 export { Performance };

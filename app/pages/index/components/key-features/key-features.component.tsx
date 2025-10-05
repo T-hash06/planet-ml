@@ -168,28 +168,28 @@ const KeyFeatures = memo(function KeyFeatures() {
 	const features = useMemo(
 		() => [
 			{
-				icon: MagnifyingGlassIcon,
-				title: 'Advanced AI/ML Models',
-				description:
-					'Utilize cutting-edge AI/ML algorithms to accurate exoplanet detection',
-			},
-			{
 				icon: ChartBarIcon,
-				title: 'Data Visualization',
+				title: 'Dual-Modal Detection',
 				description:
-					'Visualize complex data with interactive charts and graphs.',
-			},
-			{
-				icon: UsersIcon,
-				title: 'Community Collaboration',
-				description:
-					'Collaborate with a global community of researchers and enthusiasts.',
+					'Analyzes both time-series light curves and tabular parameters using MAE-based anomaly detection for comprehensive exoplanet identification.',
 			},
 			{
 				icon: GlobeIcon,
-				title: 'Global Reach',
+				title: 'Self-Supervised Learning',
 				description:
-					'Access and contribute to exoplanet research from anywhere in the world.',
+					'Leverages vast unlabeled datasets from Kepler, K2, and TESS missions to learn robust stellar behavior patterns without extensive manual labeling.',
+			},
+			{
+				icon: MagnifyingGlassIcon,
+				title: 'Explainable AI',
+				description:
+					'Provides confidence scores and feature importance attribution for every prediction, enabling scientific validation and interpretation.',
+			},
+			{
+				icon: UsersIcon,
+				title: 'Open-Source Platform',
+				description:
+					'Freely accessible web interface for researchers and enthusiasts to upload data, receive classifications, and contribute to planetary discovery.',
 			},
 		],
 		[],
@@ -221,7 +221,7 @@ const KeyFeatures = memo(function KeyFeatures() {
 					'lg:text-5xl',
 				])}
 			>
-				Key Features
+				Why ExoNova?
 			</motion.h2>
 
 			<motion.p
@@ -234,14 +234,15 @@ const KeyFeatures = memo(function KeyFeatures() {
 					'md:text-large',
 				])}
 			>
-				Discover the power of our exoplanet detection application with these key
-				features.
+				ExoNova combines state-of-the-art machine learning architectures with
+				NASA's comprehensive astronomical datasets to revolutionize exoplanet
+				discovery.
 			</motion.p>
 
 			<motion.div
 				variants={containerVariants}
 				className={cn([
-					'mt-8 text-foreground',
+					'mt-8 text-foreground h-64',
 					'sm:mt-12',
 					'md:mt-16',
 					'grid gap-6 auto-rows-fr',
