@@ -14,7 +14,7 @@ export class ExoplanetScene {
     private orbitAngle = 0;
     private orbitRadius = 35;
     private orbitHeight = 5;
-    
+
     // Sistema solar
     private sun: THREE.Mesh | null = null;
     private solarSystem: THREE.Group | null = null;
@@ -305,11 +305,11 @@ export class ExoplanetScene {
         // Crear cada planeta
         planetData.forEach((data, index) => {
             const orbitGroup = new THREE.Group();
-            
+
             // Aplicar inclinación orbital para más realismo
             orbitGroup.rotation.x = THREE.MathUtils.degToRad(data.inclination);
             orbitGroup.rotation.z = THREE.MathUtils.degToRad(data.inclination * 0.5);
-            
+
             this.solarSystem!.add(orbitGroup);
 
             // Crear órbita visible (anillo sutil)
@@ -322,7 +322,7 @@ export class ExoplanetScene {
             });
             const orbitRing = new THREE.Mesh(orbitGeo, orbitMat);
             orbitRing.rotation.x = Math.PI / 2;
-            
+
             // Aplicar la misma inclinación al anillo orbital
             const orbitRingGroup = new THREE.Group();
             orbitRingGroup.add(orbitRing);
@@ -502,10 +502,10 @@ export class ExoplanetScene {
         this.planets.forEach((planet) => {
             // Actualizar ángulo orbital (movimiento de traslación alrededor del sol)
             planet.angle += delta * planet.speed * 0.15;
-            
+
             // Actualizar posición del grupo orbital (rotación alrededor del sol)
             planet.orbitGroup.rotation.y = planet.angle;
-            
+
             // Rotar el planeta sobre su propio eje (movimiento de rotación)
             // Cada planeta tiene su propia velocidad de rotación
             planet.mesh.rotation.y += delta * planet.rotationSpeed;
