@@ -12,11 +12,11 @@ export function getApiUrl(): string {
 	// Check if we're in browser environment
 	if (typeof window === 'undefined') {
 		// Server-side: use environment variable or default
-		return 'https://backend-nsac.wittywave-105d9d7b.eastus2.azurecontainerapps.io/docs';
+		return 'https://backend-nsac.wittywave-105d9d7b.eastus2.azurecontainerapps.io/';
 	}
 
 	// Development: use environment variable or default
-	return 'https://backend-nsac.wittywave-105d9d7b.eastus2.azurecontainerapps.io/docs';
+	return 'https://backend-nsac.wittywave-105d9d7b.eastus2.azurecontainerapps.io/';
 }
 
 /**
