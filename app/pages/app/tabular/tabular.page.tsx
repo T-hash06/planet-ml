@@ -183,38 +183,46 @@ const TabularPage = memo(function TabularPage() {
 	return (
 		<TabularFormProvider form={form}>
 			<div className={cn(['relative min-h-screen w-full'])}>
-				{/* Page Header */}
-				<div className={cn(['mb-8 sm:mb-12'])}>
+				{/* Page Header with enhanced styling */}
+				<div className={cn(['mb-8 sm:mb-10 md:mb-12'])}>
 					<h2
 						className={cn([
-							'text-2xl sm:text-3xl md:text-4xl font-bold mb-4',
+							'text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4',
 							'bg-gradient-to-br from-danger via-warning to-danger',
 							'bg-clip-text text-transparent',
-							'drop-shadow-[0_0_25px_rgba(255,100,100,0.3)]',
+							'drop-shadow-[0_0_30px_rgba(255,100,100,0.4)]',
+							'transition-all duration-300',
 						])}
 					>
 						Tabular Data Predictor
 					</h2>
-					<p className={cn(['text-small sm:text-medium text-foreground/80'])}>
+					<p
+						className={cn([
+							'text-small sm:text-medium text-foreground/80',
+							'max-w-3xl',
+							'transition-colors duration-200',
+						])}
+					>
 						Configure astronomical parameters and get real-time exoplanet
 						detection predictions with AI-powered interpretability.
 					</p>
 				</div>
 
-				{/* Main Layout - Parameter Panel + Results */}
+				{/* Main Layout - Parameter Panel + Results with enhanced spacing */}
 				<div
 					className={cn([
-						'grid grid-cols-1 lg:grid-cols-[420px_1fr]',
-						'gap-6 md:gap-8',
+						'grid grid-cols-1 lg:grid-cols-[440px_1fr]',
+						'gap-6 md:gap-8 lg:gap-10',
 						'items-start',
 					])}
 				>
-					{/* Left Side - Parameter Panel */}
+					{/* Left Side - Parameter Panel with sticky positioning */}
 					<div
 						className={cn([
 							'lg:sticky lg:top-4',
 							'max-h-[calc(100vh-8rem)]',
 							'overflow-hidden',
+							'transition-all duration-300',
 						])}
 					>
 						<ParameterPanel
@@ -223,8 +231,8 @@ const TabularPage = memo(function TabularPage() {
 						/>
 					</div>
 
-					{/* Right Side - Results Panel */}
-					<div className={cn(['space-y-6 md:space-y-8'])}>
+					{/* Right Side - Results Panel with improved spacing */}
+					<div className={cn(['space-y-6 md:space-y-8 lg:space-y-10'])}>
 						<ResultsPanel
 							predictedValue={predictedValue}
 							confidence={confidence}

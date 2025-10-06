@@ -196,26 +196,47 @@ export const InterpretabilityChart = memo(function InterpretabilityChart({
 		<Card
 			className={cn([
 				'relative overflow-hidden rounded-large',
-				'bg-gradient-to-br from-content2 to-content1',
+				'bg-gradient-to-br from-content2 via-content1 to-content2',
 				'border border-divider/50',
-				'shadow-medium',
-				'backdrop-blur-sm',
+				'shadow-medium hover:shadow-large',
+				'backdrop-blur-xl',
+				'transition-all duration-300',
 			])}
 		>
-			{/* Top-right corner decoration */}
-			<div className="absolute right-0 top-0 h-16 w-16 bg-gradient-to-bl from-secondary/30 to-transparent" />
+			{/* Enhanced corner decorations */}
+			<div
+				className={cn([
+					'absolute right-0 top-0 h-24 w-24',
+					'bg-gradient-to-bl from-secondary/35 via-secondary/15 to-transparent',
+					'pointer-events-none',
+					'transition-opacity duration-300',
+				])}
+			/>
 
-			<CardHeader className={cn(['flex flex-col items-start gap-2 pb-4'])}>
+			<CardHeader
+				className={cn([
+					'flex flex-col items-start gap-2 pb-4',
+					'bg-gradient-to-br from-content2/50 to-transparent',
+					'backdrop-blur-sm',
+					'border-b border-divider/30',
+				])}
+			>
 				<h3
 					className={cn([
-						'text-large font-semibold',
+						'text-large font-bold',
 						'bg-gradient-to-br from-primary via-secondary to-primary',
 						'bg-clip-text text-transparent',
+						'drop-shadow-[0_0_20px_rgba(100,100,255,0.4)]',
+						'transition-all duration-300',
 					])}
 				>
 					Model Interpretability
 				</h3>
-				<p className={cn(['text-small text-foreground/70'])}>
+				<p
+					className={cn([
+						'text-small text-foreground/70 transition-colors duration-200',
+					])}
+				>
 					Top 8 features by importance
 				</p>
 			</CardHeader>
@@ -224,14 +245,14 @@ export const InterpretabilityChart = memo(function InterpretabilityChart({
 				{/* Loading state */}
 				{isLoading && (
 					<div className={cn(['space-y-3'])}>
-						<Skeleton className="h-8 w-full rounded-medium" />
-						<Skeleton className="h-8 w-full rounded-medium" />
-						<Skeleton className="h-8 w-full rounded-medium" />
-						<Skeleton className="h-8 w-full rounded-medium" />
-						<Skeleton className="h-8 w-full rounded-medium" />
-						<Skeleton className="h-8 w-full rounded-medium" />
-						<Skeleton className="h-8 w-full rounded-medium" />
-						<Skeleton className="h-8 w-full rounded-medium" />
+						<Skeleton className={cn(['h-8 w-full rounded-medium'])} />
+						<Skeleton className={cn(['h-8 w-full rounded-medium'])} />
+						<Skeleton className={cn(['h-8 w-full rounded-medium'])} />
+						<Skeleton className={cn(['h-8 w-full rounded-medium'])} />
+						<Skeleton className={cn(['h-8 w-full rounded-medium'])} />
+						<Skeleton className={cn(['h-8 w-full rounded-medium'])} />
+						<Skeleton className={cn(['h-8 w-full rounded-medium'])} />
+						<Skeleton className={cn(['h-8 w-full rounded-medium'])} />
 					</div>
 				)}
 
@@ -307,7 +328,14 @@ export const InterpretabilityChart = memo(function InterpretabilityChart({
 			</CardBody>
 
 			{/* Bottom-left corner decoration */}
-			<div className="absolute bottom-0 left-0 h-16 w-16 bg-gradient-to-tr from-primary/20 to-transparent opacity-30" />
+			<div
+				className={cn([
+					'absolute bottom-0 left-0 h-24 w-24',
+					'bg-gradient-to-tr from-primary/30 via-primary/10 to-transparent',
+					'pointer-events-none',
+					'transition-opacity duration-300',
+				])}
+			/>
 		</Card>
 	);
 });

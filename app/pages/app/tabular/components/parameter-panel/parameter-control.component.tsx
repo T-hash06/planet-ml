@@ -84,9 +84,10 @@ export const ParameterControl = memo(function ParameterControl({
 		<div
 			className={cn([
 				'space-y-3 p-4',
-				'border-b border-divider/30 last:border-b-0',
-				'transition-colors duration-200',
-				'hover:bg-content2/30',
+				'border-b border-divider/20 last:border-b-0',
+				'transition-all duration-300',
+				'hover:bg-gradient-to-r hover:from-primary/5 hover:to-secondary/5',
+				'hover:border-divider/40',
 			])}
 		>
 			{/* Label and description */}
@@ -95,7 +96,7 @@ export const ParameterControl = memo(function ParameterControl({
 					<span
 						className={cn([
 							'text-small font-semibold text-foreground',
-							'transition-colors duration-200',
+							'transition-colors duration-300',
 						])}
 					>
 						{parameter.label}
@@ -103,15 +104,23 @@ export const ParameterControl = memo(function ParameterControl({
 					{parameter.unit && (
 						<span
 							className={cn([
-								'text-tiny font-medium text-foreground/60',
-								'rounded-small bg-content2/50 px-2 py-0.5',
+								'text-tiny font-medium text-foreground/70',
+								'rounded-small',
+								'bg-gradient-to-r from-primary/10 to-secondary/10',
+								'border border-primary/20',
+								'px-2 py-0.5',
+								'transition-all duration-200',
 							])}
 						>
 							{parameter.unit}
 						</span>
 					)}
 				</div>
-				<p className={cn(['text-tiny text-foreground/60'])}>
+				<p
+					className={cn([
+						'text-tiny text-foreground/60 transition-colors duration-200',
+					])}
+				>
 					{parameter.description}
 				</p>
 			</div>
@@ -129,12 +138,18 @@ export const ParameterControl = memo(function ParameterControl({
 					onChange={handleSliderChange}
 					className={cn(['flex-1'])}
 					classNames={{
-						track: cn(['transition-all duration-200']),
-						thumb: cn([
-							'transition-all duration-200',
-							'hover:scale-110',
-							'active:scale-100',
+						track: cn([
+							'transition-all duration-300',
+							'bg-gradient-to-r from-primary/20 to-secondary/20',
 						]),
+						thumb: cn([
+							'transition-all duration-300',
+							'hover:scale-125',
+							'active:scale-110',
+							'shadow-medium shadow-primary/30',
+							'hover:shadow-large hover:shadow-primary/50',
+						]),
+						filler: cn(['bg-gradient-to-r from-primary to-secondary']),
 					}}
 				/>
 
@@ -150,10 +165,15 @@ export const ParameterControl = memo(function ParameterControl({
 					step={parameter.step}
 					className={cn(['w-24'])}
 					classNames={{
-						input: cn(['text-center text-small font-medium']),
+						input: cn([
+							'text-center text-small font-medium',
+							'transition-colors duration-200',
+						]),
 						inputWrapper: cn([
-							'transition-all duration-200',
-							'hover:border-primary/50',
+							'transition-all duration-300',
+							'hover:border-primary/70',
+							'hover:shadow-small hover:shadow-primary/20',
+							'bg-gradient-to-r from-content2/50 to-content1/50',
 						]),
 					}}
 				/>

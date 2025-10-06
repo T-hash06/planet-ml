@@ -67,36 +67,39 @@ export const ParameterPanel = memo(function ParameterPanel({
 		<Card
 			className={cn([
 				'relative rounded-large overflow-hidden',
-				'bg-gradient-to-br from-content2 to-content1',
+				'bg-gradient-to-br from-content2 via-content1 to-content2',
 				'border border-divider/50',
-				'shadow-lg',
-				'backdrop-blur-lg',
+				'shadow-medium hover:shadow-large',
+				'backdrop-blur-xl',
 				'h-full',
-				'transition-shadow duration-300',
-				'hover:shadow-xl',
+				'transition-all duration-300',
 			])}
 		>
-			{/* Subtle corner decoration */}
+			{/* Corner decorations for depth */}
 			<div
 				className={cn([
-					'absolute top-0 right-0 h-16 w-16',
-					'bg-gradient-to-bl from-primary/20 to-transparent',
+					'absolute top-0 right-0 h-24 w-24',
+					'bg-gradient-to-bl from-primary/30 via-primary/10 to-transparent',
 					'pointer-events-none',
+					'transition-opacity duration-300',
 				])}
 			/>
 			<div
 				className={cn([
-					'absolute bottom-0 left-0 h-16 w-16',
-					'bg-gradient-to-tr from-secondary/20 to-transparent',
+					'absolute bottom-0 left-0 h-24 w-24',
+					'bg-gradient-to-tr from-secondary/25 via-secondary/10 to-transparent',
 					'pointer-events-none',
+					'transition-opacity duration-300',
 				])}
 			/>
 
 			<CardHeader
 				className={cn([
 					'flex flex-col gap-3 pb-4',
-					'border-b border-divider/50',
+					'border-b border-divider/30',
 					'relative z-10',
+					'bg-gradient-to-br from-content2/50 to-transparent',
+					'backdrop-blur-sm',
 				])}
 			>
 				{/* Panel title */}
@@ -106,12 +109,17 @@ export const ParameterPanel = memo(function ParameterPanel({
 							'text-large font-bold',
 							'bg-gradient-to-br from-primary via-secondary to-primary',
 							'bg-clip-text text-transparent',
-							'drop-shadow-[0_0_15px_rgba(255,255,255,0.15)]',
+							'drop-shadow-[0_0_20px_rgba(100,100,255,0.4)]',
+							'transition-all duration-300',
 						])}
 					>
 						Parameter Console
 					</h2>
-					<p className={cn(['text-tiny text-foreground/60'])}>
+					<p
+						className={cn([
+							'text-tiny text-foreground/70 transition-colors duration-200',
+						])}
+					>
 						Configure astronomical parameters or upload CSV data
 					</p>
 				</div>
@@ -133,10 +141,12 @@ export const ParameterPanel = memo(function ParameterPanel({
 						onClick={handleFileButtonClick}
 						className={cn([
 							'w-full',
-							'transition-all duration-200',
-							'hover:scale-[1.02]',
-							'hover:shadow-medium hover:shadow-primary/30',
-							'border-primary/50',
+							'transition-all duration-300',
+							'hover:scale-[1.03] hover:-translate-y-0.5',
+							'hover:shadow-large hover:shadow-primary/40',
+							'border-primary/60 hover:border-primary',
+							'bg-gradient-to-r from-primary/5 to-secondary/5',
+							'hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10',
 						])}
 					>
 						Upload CSV File

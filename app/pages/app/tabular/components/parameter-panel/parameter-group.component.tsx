@@ -43,16 +43,20 @@ export const ParameterGroup = memo(function ParameterGroup({
 					<div className={cn(['flex items-center justify-between gap-2'])}>
 						<span
 							className={cn([
-								'text-medium font-bold text-primary',
-								'transition-all duration-200',
+								'text-medium font-bold',
+								'bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent',
+								'transition-all duration-300',
 							])}
 						>
 							{groupName}
 						</span>
 						<span
 							className={cn([
-								'text-tiny font-medium text-foreground/50',
-								'rounded-full bg-content2/50 px-2 py-0.5',
+								'text-tiny font-medium text-foreground/60',
+								'rounded-full bg-gradient-to-r from-primary/10 to-secondary/10',
+								'border border-primary/20',
+								'px-2.5 py-0.5',
+								'transition-all duration-200',
 							])}
 						>
 							{parameters.length} {parameters.length === 1 ? 'param' : 'params'}
@@ -62,16 +66,16 @@ export const ParameterGroup = memo(function ParameterGroup({
 				classNames={{
 					base: cn([
 						'border-b border-divider/30',
-						'transition-all duration-200',
+						'transition-all duration-300',
 					]),
 					title: cn(['py-3 px-4']),
 					trigger: cn([
 						'py-0',
-						'hover:bg-content2/30',
-						'transition-colors duration-200',
+						'hover:bg-gradient-to-r hover:from-primary/5 hover:to-secondary/5',
+						'transition-all duration-300',
 					]),
 					content: cn(['px-0 pb-0']),
-					indicator: cn(['text-primary']),
+					indicator: cn(['text-primary', 'transition-transform duration-300']),
 				}}
 			>
 				<div className={cn(['divide-y divide-divider/20'])}>

@@ -82,12 +82,14 @@ const ResultsPanel = memo(function ResultsPanel({
 		<Card
 			className={cn([
 				'relative rounded-large overflow-hidden',
-				'bg-gradient-to-br from-primary/15 via-primary/10 to-primary/5',
+				'bg-gradient-to-br from-primary/15 via-secondary/10 to-primary/5',
 				'border border-primary/50',
-				'shadow-[0_8px_32px_0] shadow-primary/30',
+				'shadow-large shadow-primary/30',
 				'backdrop-blur-xl',
 				'min-h-[400px]',
-				'transition-shadow duration-300 hover:shadow-[0_12px_40px_0] hover:shadow-primary/40',
+				'transition-all duration-300',
+				'hover:shadow-[0_16px_48px_0] hover:shadow-primary/40',
+				'hover:border-primary/70',
 			])}
 		>
 			<CardBody
@@ -100,15 +102,18 @@ const ResultsPanel = memo(function ResultsPanel({
 				{/* Panel Title */}
 				<h3
 					className={cn([
-						'text-large font-bold text-foreground mb-8',
-						'text-center',
+						'text-large font-bold text-center mb-8',
+						'bg-gradient-to-br from-primary via-secondary to-primary',
+						'bg-clip-text text-transparent',
+						'drop-shadow-[0_0_25px_rgba(100,100,255,0.4)]',
+						'transition-all duration-300',
 					])}
 				>
 					Exoplanet Detection Probability
 				</h3>
 
 				{/* Circular Progress Chart */}
-				<div className="relative mb-8">
+				<div className={cn(['relative mb-8'])}>
 					<CircularProgress
 						size="lg"
 						value={probabilityPercentage}
@@ -138,11 +143,11 @@ const ResultsPanel = memo(function ResultsPanel({
 				</div>
 
 				{/* Status Text */}
-				<div className="mb-6 text-center space-y-2">
+				<div className={cn(['mb-6 text-center space-y-2'])}>
 					<p className={cn(['text-medium font-semibold', textColorClass])}>
 						{getInterpretationText(probabilityPercentage)}
 					</p>
-					<p className="text-small text-foreground/60">
+					<p className={cn(['text-small text-foreground/60'])}>
 						{predictedValue === null
 							? 'Adjust parameters to generate prediction'
 							: 'Neural network model prediction'}
@@ -151,11 +156,11 @@ const ResultsPanel = memo(function ResultsPanel({
 
 				{/* Confidence Indicator */}
 				<div className={cn(['w-full max-w-sm space-y-3'])}>
-					<div className="flex items-center justify-between">
-						<span className="text-small font-semibold text-foreground">
+					<div className={cn(['flex items-center justify-between'])}>
+						<span className={cn(['text-small font-semibold text-foreground'])}>
 							Model Confidence
 						</span>
-						<span className="text-small font-bold text-primary">
+						<span className={cn(['text-small font-bold text-primary'])}>
 							{confidencePercentage}%
 						</span>
 					</div>
@@ -170,26 +175,28 @@ const ResultsPanel = memo(function ResultsPanel({
 						}}
 						data-loading={dataAttr(isLoading)}
 					/>
-					<p className="text-tiny text-foreground/60 text-center">
+					<p className={cn(['text-tiny text-foreground/60 text-center'])}>
 						{confidence !== null
 							? getConfidenceDescription(confidence)
 							: 'No prediction available'}
 					</p>
 				</div>
 
-				{/* Corner decorations */}
+				{/* Corner decorations with enhanced gradients */}
 				<div
 					className={cn([
-						'absolute top-0 right-0 h-16 w-16',
-						'bg-gradient-to-bl from-primary/30 to-transparent',
+						'absolute top-0 right-0 h-24 w-24',
+						'bg-gradient-to-bl from-primary/40 via-primary/15 to-transparent',
 						'transition-opacity duration-300',
+						'pointer-events-none',
 					])}
 				/>
 				<div
 					className={cn([
-						'absolute bottom-0 right-0 h-16 w-16 opacity-30',
-						'bg-gradient-to-tl from-secondary/40 to-transparent',
+						'absolute bottom-0 right-0 h-24 w-24',
+						'bg-gradient-to-tl from-secondary/35 via-secondary/15 to-transparent',
 						'transition-opacity duration-300',
+						'pointer-events-none',
 					])}
 				/>
 

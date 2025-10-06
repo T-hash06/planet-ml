@@ -39,38 +39,45 @@ const AppLayout = memo(function AppLayout() {
 
 			{/* Main Content Container */}
 			<div className="relative z-10">
-				{/* Navigation Bar */}
+				{/* Navigation Bar with enhanced glassmorphism */}
 				<nav
 					className={cn([
 						'sticky top-0 z-50',
-						'bg-gradient-to-br from-content2/95 to-content1/95',
+						'bg-gradient-to-br from-content2/95 via-content1/90 to-content2/95',
 						'backdrop-blur-xl',
-						'border-b border-divider/50',
-						'shadow-medium',
+						'border-b border-divider/30',
+						'shadow-large shadow-primary/10',
 						'px-4 sm:px-6 md:px-8 lg:px-12',
 						'py-4',
+						'transition-all duration-300',
 					])}
 				>
 					<div className="mx-auto max-w-7xl">
 						<div className="flex items-center justify-between gap-4">
-							{/* App Title */}
+							{/* App Title with enhanced gradients */}
 							<div className="flex flex-col gap-1">
 								<h1
 									className={cn([
-										'text-large sm:text-xl md:text-2xl font-bold',
+										'text-large sm:text-xl md:text-2xl font-extrabold',
 										'bg-gradient-to-br from-primary via-secondary to-primary',
 										'bg-clip-text text-transparent',
-										'drop-shadow-[0_0_15px_rgba(100,100,255,0.3)]',
+										'drop-shadow-[0_0_20px_rgba(100,100,255,0.4)]',
+										'transition-all duration-300',
 									])}
 								>
 									ExoNova AI Platform
 								</h1>
-								<p className="text-tiny text-foreground/70">
+								<p
+									className={cn([
+										'text-tiny text-foreground/70',
+										'transition-colors duration-200',
+									])}
+								>
 									AI-Driven Exoplanet Detection & Analysis
 								</p>
 							</div>
 
-							{/* Navigation Tabs */}
+							{/* Navigation Tabs with enhanced styling */}
 							<Tabs
 								aria-label="App navigation"
 								selectedKey={activeTab}
@@ -78,12 +85,16 @@ const AppLayout = memo(function AppLayout() {
 								color="primary"
 								variant="underlined"
 								classNames={{
-									tabList: cn(['gap-4 sm:gap-6', 'border-b border-divider/30']),
-									cursor: 'bg-gradient-to-r from-primary to-secondary',
+									tabList: cn(['gap-4 sm:gap-6', 'border-b border-divider/20']),
+									cursor: cn([
+										'bg-gradient-to-r from-primary via-secondary to-primary',
+										'shadow-small shadow-primary/30',
+									]),
 									tab: cn([
-										'text-small sm:text-medium',
+										'text-small sm:text-medium font-semibold',
 										'data-[selected=true]:text-primary',
-										'transition-colors duration-200',
+										'data-[hover=true]:text-primary/80',
+										'transition-all duration-300',
 									]),
 								}}
 							>
@@ -93,12 +104,13 @@ const AppLayout = memo(function AppLayout() {
 						</div>
 					</div>
 
-					{/* Subtle Corner Decoration */}
+					{/* Enhanced Corner Decoration */}
 					<div
 						className={cn([
-							'absolute top-0 right-0 h-16 w-16',
-							'bg-gradient-to-bl from-primary/20 to-transparent',
+							'absolute top-0 right-0 h-20 w-20',
+							'bg-gradient-to-bl from-primary/30 via-primary/10 to-transparent',
 							'pointer-events-none',
+							'transition-opacity duration-300',
 						])}
 					/>
 				</nav>
@@ -108,16 +120,25 @@ const AppLayout = memo(function AppLayout() {
 					className={cn([
 						'relative',
 						'min-h-[calc(100vh-5rem)]',
-						'px-4 sm:px-6 md:px-8 lg:px-12',
-						'py-6 sm:py-8 md:py-10',
+						'px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16',
+						'py-6 sm:py-8 md:py-10 lg:py-12',
 					])}
 				>
-					{/* Subtle gradient overlay for depth */}
+					{/* Enhanced gradient overlays for depth */}
 					<div
 						className={cn([
 							'fixed inset-0 pointer-events-none',
 							'bg-gradient-to-b from-primary/5 via-transparent to-secondary/5',
 							'mix-blend-soft-light',
+							'transition-opacity duration-500',
+						])}
+					/>
+					<div
+						className={cn([
+							'fixed inset-0 pointer-events-none',
+							'bg-gradient-to-tr from-danger/3 via-transparent to-warning/3',
+							'mix-blend-overlay',
+							'transition-opacity duration-500',
 						])}
 					/>
 
