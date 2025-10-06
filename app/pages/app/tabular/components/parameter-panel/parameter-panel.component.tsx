@@ -10,14 +10,25 @@ import {
 	Button,
 	Card,
 	CardBody,
+	CardFooter,
 	CardHeader,
 	cn,
+	Dropdown,
+	DropdownItem,
+	DropdownMenu,
+	DropdownTrigger,
 } from '@heroui/react';
-import { UploadSimple } from '@phosphor-icons/react';
+import {
+	FileArrowDown,
+	FileCsv,
+	FileJs,
+	UploadSimple,
+} from '@phosphor-icons/react';
 import { memo, useCallback, useRef, useState } from 'react';
 import {
 	getGroupedParameters,
 	PARAMETER_GROUP_LABELS,
+	TABULAR_PARAMETERS,
 } from '../../tabular.config';
 import { ParameterGroup as ParameterGroupEnum } from '../../tabular.types';
 import { ParameterGroup } from './parameter-group.component';
@@ -29,6 +40,8 @@ interface ParameterPanelProps {
 	onCSVUpload?: (file: File) => void;
 	/** Handle planet selection from CSV */
 	onPlanetSelect?: (rowData: Record<string, unknown>) => void;
+	/** Current form values for export */
+	currentValues?: Record<string, number>;
 }
 
 /**
@@ -39,6 +52,7 @@ export const ParameterPanel = memo(function ParameterPanel({
 	onChange,
 	onCSVUpload,
 	onPlanetSelect,
+	currentValues = {},
 }: ParameterPanelProps) {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
@@ -50,6 +64,84 @@ export const ParameterPanel = memo(function ParameterPanel({
 	const [selectedPlanet, setSelectedPlanet] = useState<string | null>(null);
 
 	const groupedParameters = getGroupedParameters();
+
+	/**
+	 * Export current parameter values as CSV
+	 */
+	const exportAsCSV = useCallback(() => {
+		// Create CSV header row with parameter names
+		const headers = TABULAR_PARAMETERS.map((param) => param.name);
+		const headerRow = headers.join(',');
+
+		// Create CSV data row with current values
+		const values = TABULAR_PARAMETERS.map((param) => {
+			const value = currentValues[param.name] ?? param.defaultValue;
+			return value;
+		});
+		const dataRow = values.join(',');
+
+		// Combine header and data
+		const csvContent = `${headerRow}\n${dataRow}`;
+
+		// Create blob and download
+		const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement('a');
+		link.href = url;
+		link.download = `exoplanet_parameters_${new Date().toISOString().split('T')[0]}.csv`;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+		URL.revokeObjectURL(url);
+	}, [currentValues]);
+
+	/**
+	 * Export current parameter values as JSON
+	 */
+	const exportAsJSON = useCallback(() => {
+		// Create object with parameter names as keys and current values
+		const data: Record<string, unknown> = {};
+
+		for (const param of TABULAR_PARAMETERS) {
+			const value = currentValues[param.name] ?? param.defaultValue;
+			data[param.name] = {
+				value,
+				label: param.label,
+				unit: param.unit,
+				description: param.description,
+			};
+		}
+
+		// Create formatted JSON string
+		const jsonContent = JSON.stringify(data, null, 2);
+
+		// Create blob and download
+		const blob = new Blob([jsonContent], {
+			type: 'application/json;charset=utf-8;',
+		});
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement('a');
+		link.href = url;
+		link.download = `exoplanet_parameters_${new Date().toISOString().split('T')[0]}.json`;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+		URL.revokeObjectURL(url);
+	}, [currentValues]);
+
+	/**
+	 * Handle export format selection
+	 */
+	const handleExport = useCallback(
+		(format: 'csv' | 'json') => {
+			if (format === 'csv') {
+				exportAsCSV();
+			} else {
+				exportAsJSON();
+			}
+		},
+		[exportAsCSV, exportAsJSON],
+	);
 
 	const handleFileButtonClick = useCallback(() => {
 		fileInputRef.current?.click();
@@ -339,6 +431,67 @@ export const ParameterPanel = memo(function ParameterPanel({
 					})}
 				</div>
 			</CardBody>
+
+			{/* Export Section */}
+			<CardFooter
+				className={cn([
+					'flex flex-col gap-3 pt-4',
+					'border-t border-divider/30',
+					'relative z-10',
+					'bg-gradient-to-br from-content2/50 to-transparent',
+					'backdrop-blur-sm',
+				])}
+			>
+				<div className={cn(['space-y-2 w-full'])}>
+					<p
+						className={cn([
+							'text-tiny text-foreground/70 transition-colors duration-200',
+						])}
+					>
+						Export current parameters
+					</p>
+					<Dropdown>
+						<DropdownTrigger>
+							<Button
+								color="secondary"
+								variant="bordered"
+								size="sm"
+								startContent={<FileArrowDown size={18} weight="duotone" />}
+								className={cn([
+									'w-full',
+									'transition-all duration-300',
+									'hover:scale-[1.03] hover:-translate-y-0.5',
+									'hover:shadow-large hover:shadow-secondary/40',
+									'border-secondary/60 hover:border-secondary',
+									'bg-gradient-to-r from-secondary/5 to-success/5',
+									'hover:bg-gradient-to-r hover:from-secondary/10 hover:to-success/10',
+								])}
+							>
+								Export Data
+							</Button>
+						</DropdownTrigger>
+						<DropdownMenu
+							aria-label="Export format selection"
+							onAction={(key) => handleExport(key as 'csv' | 'json')}
+						>
+							<DropdownItem
+								key="csv"
+								description="Export as comma-separated values"
+								startContent={<FileCsv size={20} weight="duotone" />}
+							>
+								Export as CSV
+							</DropdownItem>
+							<DropdownItem
+								key="json"
+								description="Export as JSON with metadata"
+								startContent={<FileJs size={20} weight="duotone" />}
+							>
+								Export as JSON
+							</DropdownItem>
+						</DropdownMenu>
+					</Dropdown>
+				</div>
+			</CardFooter>
 		</Card>
 	);
 });

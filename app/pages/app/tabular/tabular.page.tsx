@@ -181,6 +181,7 @@ const TabularPage = memo(function TabularPage() {
 							onChange={handleParameterChange}
 							onCSVUpload={handleCSVUpload}
 							onPlanetSelect={handlePlanetSelection}
+							currentValues={form.state.values as Record<string, number>}
 						/>
 					</div>
 
