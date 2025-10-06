@@ -99,9 +99,9 @@ const AppIndexPage = memo(function AppIndexPage() {
 						</ul>
 
 						{/* Button */}
-						<Link
+						<Button
 							color="primary"
-							as={Button}
+							as={Link}
 							variant="solid"
 							href="/app/tabular"
 							size="lg"
@@ -115,7 +115,7 @@ const AppIndexPage = memo(function AppIndexPage() {
 							endContent={<ChartBar size={20} weight="bold" />}
 						>
 							Start Tabular Analysis
-						</Link>
+						</Button>
 					</CardBody>
 
 					{/* Corner Decoration */}
@@ -185,9 +185,9 @@ const AppIndexPage = memo(function AppIndexPage() {
 						</ul>
 
 						{/* Button */}
-						<Link
+						<Button
 							color="secondary"
-							as={Button}
+							as={Link}
 							href="/app/curves"
 							variant="solid"
 							size="lg"
@@ -201,7 +201,7 @@ const AppIndexPage = memo(function AppIndexPage() {
 							endContent={<Graph size={20} weight="bold" />}
 						>
 							Start Curve Analysis
-						</Link>
+						</Button>
 					</CardBody>
 
 					{/* Corner Decoration */}

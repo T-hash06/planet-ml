@@ -1,4 +1,4 @@
-import { Button, cn } from '@heroui/react';
+import { Button, cn, Link } from '@heroui/react';
 import { RocketLaunchIcon } from '@phosphor-icons/react';
 import { motion } from 'framer-motion';
 
@@ -58,6 +58,8 @@ const PageDescription = () => (
 			<Button
 				size="lg"
 				radius="lg"
+				as={Link}
+				href="/app"
 				endContent={<RocketLaunchIcon size={20} weight="duotone" />}
 				aria-label="Explore exoplanets detected by ExoNova"
 				className={cn([
