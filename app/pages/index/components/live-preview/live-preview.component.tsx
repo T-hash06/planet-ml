@@ -326,14 +326,14 @@ const LivePreview = memo(() => {
 											probabilityValue < 25 && 'text-danger',
 										])}
 									>
-										{probabilityValue >= 75 && 'High Confidence Detection'}
+										{probabilityValue >= 75 && 'High Planet Probability'}
 										{probabilityValue >= 50 &&
 											probabilityValue < 75 &&
-											'Moderate Confidence'}
+											'Moderate Planet Probability'}
 										{probabilityValue >= 25 &&
 											probabilityValue < 50 &&
-											'Low Confidence'}
-										{probabilityValue < 25 && 'Unlikely Detection'}
+											'Low Planet Probability'}
+										{probabilityValue < 25 && 'Unlikely Planet Probability'}
 									</p>
 									<p className="text-small text-foreground/60">
 										{probabilityValue === 0

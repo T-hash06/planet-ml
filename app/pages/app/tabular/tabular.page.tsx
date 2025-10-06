@@ -109,76 +109,28 @@ const TabularPage = memo(function TabularPage() {
 	}, []);
 
 	/**
-	 * Handle CSV file upload
-	 * Parses CSV file and populates form fields with extracted values
+	 * Handle planet selection from Autocomplete
+	 * Loads the selected row data into the form
 	 */
-	const handleCSVUpload = useCallback(
-		(file: File) => {
-			const reader = new FileReader();
-
-			reader.onload = (event) => {
-				try {
-					const csvText = event.target?.result as string;
-					if (!csvText) {
-						alert('Failed to read CSV file');
-						return;
-					}
-
-					// Parse CSV (basic implementation)
-					const lines = csvText.split('\n').filter((line) => line.trim());
-					if (lines.length < 2) {
-						alert('CSV file must contain header row and at least one data row');
-						return;
-					}
-
-					// Extract headers from first line
-					const headers = lines[0].split(',').map((h) => h.trim());
-
-					// Extract values from second line (first data row)
-					const values = lines[1].split(',').map((v) => v.trim());
-
-					// Create object mapping parameter names to values
-					const parsedData: Record<string, number> = {};
-					headers.forEach((header, index) => {
-						const value = Number.parseFloat(values[index]);
-						if (!Number.isNaN(value)) {
-							parsedData[header] = value;
-						}
-					});
-
-					// Validate that we have some valid data
-					if (Object.keys(parsedData).length === 0) {
-						alert('No valid numeric data found in CSV file');
-						return;
-					}
-
-					// Update form fields with parsed values
-					// Only update fields that exist in the configuration
-					const defaultValues = getDefaultValues();
-					for (const [fieldName, fieldValue] of Object.entries(parsedData)) {
-						if (fieldName in defaultValues) {
-							form.setFieldValue(fieldName, fieldValue);
-						}
-					}
-
-					// Show success message
-					alert(
-						`Successfully loaded ${Object.keys(parsedData).length} parameters from "${file.name}"`,
-					);
-				} catch (error) {
-					console.error('CSV parsing error:', error);
-					alert(`Error parsing CSV file: ${error}`);
+	const handlePlanetSelection = useCallback(
+		(rowData: Record<string, any>) => {
+			// Update form fields with selected row values
+			const defaultValues = getDefaultValues();
+			for (const [fieldName, fieldValue] of Object.entries(rowData)) {
+				if (fieldName in defaultValues && typeof fieldValue === 'number') {
+					form.setFieldValue(fieldName, fieldValue);
 				}
-			};
+			}
 
-			reader.onerror = () => {
-				alert('Error reading file');
-			};
-
-			reader.readAsText(file);
+			// Trigger form submission
+			form.handleSubmit();
 		},
 		[form],
 	);
+	const handleCSVUpload = useCallback((file: File) => {
+		// CSV parsing is now handled in ParameterPanel
+		console.log(`CSV uploaded: ${file.name}`);
+	}, []);
 
 	return (
 		<TabularFormProvider form={form}>
@@ -228,6 +180,7 @@ const TabularPage = memo(function TabularPage() {
 						<ParameterPanel
 							onChange={handleParameterChange}
 							onCSVUpload={handleCSVUpload}
+							onPlanetSelect={handlePlanetSelection}
 						/>
 					</div>
 

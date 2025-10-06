@@ -222,7 +222,7 @@ ExoNova is part of the **NASA Space Apps Challenge**, demonstrating how collabor
 
 ## 🌍 Access ExoNova
 
-**Web Platform**: [Coming Soon]  
+**Web Platform**: [ExoNova AI Detection Platform](https://frontend-nsac.wittywave-105d9d7b.eastus2.azurecontainerapps.io/)
 **Documentation**: [Coming Soon]  
 **Community Forum**: [Coming Soon]
 

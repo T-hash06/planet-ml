@@ -29,10 +29,12 @@ const toPercentage = (value: number | null): number => {
  * Gets interpretation text based on probability percentage
  */
 const getInterpretationText = (percentage: number): string => {
-	if (percentage >= 75) return 'High Confidence Detection';
-	if (percentage >= 50) return 'Moderate Confidence';
-	if (percentage >= 25) return 'Low Confidence';
-	return 'Unlikely Detection';
+	if (percentage >= 90) return 'Very likely a planet';
+	if (percentage >= 75) return 'High probability of being a planet';
+	if (percentage >= 50) return 'Moderate probability of being a planet';
+	if (percentage >= 25) return 'Low probability of being a planet';
+	if (percentage > 0) return 'Unlikely to be a planet';
+	return 'No detection';
 };
 
 /**
