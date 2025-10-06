@@ -1,28 +1,11 @@
 import { Card, CardBody, CircularProgress, cn, Slider } from '@heroui/react';
+import { predictLivePreview } from '@shared/api';
 import { dataAttr } from '@shared/utility/props';
 import { useForm } from '@tanstack/react-form';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { memo, useEffect, useState } from 'react';
-import {
-	LivePreviewForm,
-	type LivePreviewFormOutput,
-} from './live-preview.validators';
-
-const calculatePlanetProbability = async (
-	data: LivePreviewFormOutput,
-): Promise<number> => {
-	await new Promise((resolve) => setTimeout(resolve, 300));
-	const avg =
-		(data.plTranmid +
-			data.stPmdec +
-			data.stTmag +
-			data.stRade +
-			data.stDist +
-			data.plRade) /
-		6;
-	return Math.round(avg * 100);
-};
+import { LivePreviewForm } from './live-preview.validators';
 
 const SLIDER_CONFIGS = [
 	{
@@ -65,6 +48,9 @@ const SLIDER_CONFIGS = [
 ];
 
 const LivePreview = memo(() => {
+	const [lastProbabilityValue, setLastProbabilityValue] = useState<number>(0);
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
 	const form = useForm({
 		defaultValues: {
 			plTranmid: 0.5,
@@ -87,11 +73,24 @@ const LivePreview = memo(() => {
 
 	const probabilityQuery = useQuery({
 		queryKey: ['calculate-planet-probability', form.state.values],
-		queryFn: () => calculatePlanetProbability(form.state.values),
+		queryFn: async () => {
+			try {
+				const response = await predictLivePreview(form.state.values);
+				setErrorMessage(null); // Clear any previous errors
+				return response.probability;
+			} catch (error) {
+				console.error('Prediction error:', error);
+				if (error instanceof Error) {
+					setErrorMessage(error.message);
+				} else {
+					setErrorMessage('An unexpected error occurred. Please try again.');
+				}
+				throw error;
+			}
+		},
 		enabled: form.state.isValid,
+		retry: 2, // Retry failed requests twice
 	});
-
-	const [lastProbabilityValue, setLastProbabilityValue] = useState<number>(0);
 
 	useEffect(() => {
 		if (
@@ -173,6 +172,21 @@ const LivePreview = memo(() => {
 						transit detection.
 					</p>
 				</motion.div>
+
+				{/* Error Message Display */}
+				{errorMessage && (
+					<motion.div variants={itemVariants} className="mb-6">
+						<div
+							className={cn([
+								'p-4 rounded-large',
+								'bg-danger/10 border border-danger/50',
+								'text-danger text-center',
+							])}
+						>
+							<p className="text-small font-semibold">Error: {errorMessage}</p>
+						</div>
+					</motion.div>
+				)}
 
 				{/* Main Content Grid */}
 				<div

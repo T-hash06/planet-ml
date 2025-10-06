@@ -1,4 +1,5 @@
 import { cn } from '@heroui/react';
+import { predictTabular } from '@shared/api';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
@@ -7,7 +8,6 @@ import { ParameterPanel } from './components/parameter-panel';
 import { ResultsPanel } from './components/results-panel';
 import { getDefaultValues } from './tabular.config';
 import { TabularFormProvider } from './tabular.context';
-import { generateMockPrediction } from './tabular.mocks';
 import type { PredictionRequest, PredictionResponse } from './tabular.types';
 import { validateField } from './tabular.validators';
 
@@ -33,18 +33,26 @@ const TabularPage = memo(function TabularPage() {
 	// Debounce timer ref for manual submission triggering
 	const submitTimerRef = useRef<NodeJS.Timeout | null>(null);
 
+	// Error state for displaying API errors
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
 	// TanStack Query mutation for prediction API
 	const predictionMutation = useMutation({
 		mutationFn: async (data: PredictionRequest) => {
-			// Simulate API delay
-			await new Promise((resolve) => setTimeout(resolve, 300));
-			return generateMockPrediction(data);
+			return predictTabular(data);
 		},
 		onSuccess: (data) => {
 			setLastPrediction(data);
+			setErrorMessage(null); // Clear any previous errors
 		},
 		onError: (error) => {
 			console.error('Prediction error:', error);
+			// Display user-friendly error message
+			if (error instanceof Error) {
+				setErrorMessage(error.message);
+			} else {
+				setErrorMessage('An unexpected error occurred. Please try again.');
+			}
 		},
 	});
 
@@ -159,6 +167,19 @@ const TabularPage = memo(function TabularPage() {
 						detection predictions with AI-powered interpretability.
 					</p>
 				</div>
+
+				{/* Error Message Display */}
+				{errorMessage && (
+					<div
+						className={cn([
+							'mb-6 p-4 rounded-large',
+							'bg-danger/10 border border-danger/50',
+							'text-danger',
+						])}
+					>
+						<p className="text-small font-semibold">Error: {errorMessage}</p>
+					</div>
+				)}
 
 				{/* Main Layout - Parameter Panel + Results with enhanced spacing */}
 				<div
