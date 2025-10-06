@@ -109,7 +109,7 @@ const ResultsPanel = memo(function ResultsPanel({
 						'transition-all duration-300',
 					])}
 				>
-					Exoplanet Detection Probability
+					Probability of Being a Planet
 				</h3>
 
 				{/* Circular Progress Chart */}
