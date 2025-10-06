@@ -113,7 +113,7 @@ const TabularPage = memo(function TabularPage() {
 	 * Loads the selected row data into the form
 	 */
 	const handlePlanetSelection = useCallback(
-		(rowData: Record<string, any>) => {
+		(rowData: Record<string, unknown>) => {
 			// Update form fields with selected row values
 			const defaultValues = getDefaultValues();
 			for (const [fieldName, fieldValue] of Object.entries(rowData)) {

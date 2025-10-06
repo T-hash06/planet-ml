@@ -46,7 +46,8 @@ export const ParameterControl = memo(function ParameterControl({
 	onChange,
 }: ParameterControlProps) {
 	// Access form from context
-	const form = useTabularForm();
+	// biome-ignore lint/suspicious/noExplicitAny: Just to get around form store typing issue
+	const form = useTabularForm() as { store: any };
 
 	// Use useStore for reactive access to the parameter value
 	const value = useStore(

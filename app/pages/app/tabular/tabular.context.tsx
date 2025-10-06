@@ -17,8 +17,7 @@ export type TabularFormValues = Record<string, number>;
  * Using a simplified type that captures the essential form API
  * This avoids the complexity of FormApi's 11+ generic parameters
  */
-// biome-ignore lint/suspicious/noExplicitAny: Form API has complex generic structure
-export type TabularFormApi = any;
+export type TabularFormApi = unknown;
 
 /**
  * Context for sharing the TanStack Form instance

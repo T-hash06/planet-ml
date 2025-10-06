@@ -28,7 +28,7 @@ interface ParameterPanelProps {
 	/** Handle CSV file upload */
 	onCSVUpload?: (file: File) => void;
 	/** Handle planet selection from CSV */
-	onPlanetSelect?: (rowData: Record<string, any>) => void;
+	onPlanetSelect?: (rowData: Record<string, unknown>) => void;
 }
 
 /**
@@ -44,7 +44,7 @@ export const ParameterPanel = memo(function ParameterPanel({
 	const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
 
 	// CSV data state - stores all rows from uploaded CSV
-	const [csvRows, setCsvRows] = useState<Array<Record<string, any>>>([]);
+	const [csvRows, setCsvRows] = useState<Array<Record<string, unknown>>>([]);
 
 	// Selected planet state - stores the currently selected planet name
 	const [selectedPlanet, setSelectedPlanet] = useState<string | null>(null);
@@ -290,7 +290,7 @@ export const ParameterPanel = memo(function ParameterPanel({
 							}))}
 							onSelectionChange={(key) => {
 								if (key) {
-									handlePlanetSelection(Number.parseInt(key as string));
+									handlePlanetSelection(Number.parseInt(key as string, 10));
 								}
 							}}
 						>
