@@ -33,7 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<Meta />
 				<Links />
 			</head>
-			<body className="dark bg-content1">
+			<body className="dark bg-content1 overflow-x-hidden overflow-y-auto w-dvw h-dvh">
 				{children}
 				<ScrollRestoration />
 				<Scripts />
