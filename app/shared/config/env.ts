@@ -5,24 +5,18 @@
 
 /**
  * Get the API base URL based on environment
- * In development: uses VITE_API_URL from .env (default: http://localhost:8000)
+ * In development: uses VITE_API_URL from .env (default: https://backend-nsac.wittywave-105d9d7b.eastus2.azurecontainerapps.io/docs)
  * In production: uses /api path on same domain
  */
 export function getApiUrl(): string {
 	// Check if we're in browser environment
 	if (typeof window === 'undefined') {
 		// Server-side: use environment variable or default
-		return import.meta.env.VITE_API_URL || 'http://localhost:8000';
-	}
-
-	// Client-side: check if we're in production
-	if (import.meta.env.PROD) {
-		// Production: use /api path on same domain
-		return `${window.location.origin}/api`;
+		return 'https://backend-nsac.wittywave-105d9d7b.eastus2.azurecontainerapps.io/docs';
 	}
 
 	// Development: use environment variable or default
-	return import.meta.env.VITE_API_URL || 'http://localhost:8000';
+	return 'https://backend-nsac.wittywave-105d9d7b.eastus2.azurecontainerapps.io/docs';
 }
 
 /**
