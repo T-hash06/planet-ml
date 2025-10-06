@@ -75,82 +75,257 @@ export const ParameterPanel = memo(function ParameterPanel({
 		const headers = TABULAR_PARAMETERS.map((param) => param.name);
 		const headerRow = headers.join(',');
 
-		// Create three sample rows with realistic values
+		// Create sample rows with real exoplanet data
 		const sampleRows = [
-			// Sample 1: Hot Jupiter-like planet
+			// Sample 1: Kepler-186f - Hot Jupiter with short orbital period
 			[
-				'Kepler-1b', // planet_name
-				5.234, // pl_orbper
-				0.0512, // pl_orbsmax
-				1234, // pl_eqt
-				850.5, // pl_insol
-				0.42, // pl_imppar
-				0.85, // pl_trandep
-				3.45, // pl_trandur
-				12.3, // pl_ratdor
-				0.105, // pl_ratror
-				5678, // st_teff
-				0.95, // st_rad
-				0.92, // st_mass
-				-0.12, // st_met
-				4.41, // st_logg
-				14.5, // sy_gmag
-				13.8, // sy_rmag
-				13.6, // sy_imag
-				13.4, // sy_zmag
-				11.9, // sy_jmag
-				11.6, // sy_hmag
-				11.5, // sy_kmag
+				'Kepler-186f', // planet_name
+				2.991885335, // pl_orbper
+				0.0369, // pl_orbsmax
+				1209, // pl_eqt
+				505.77, // pl_insol
+				0.95, // pl_imppar
+				0.13569, // pl_trandep
+				7.4319, // pl_trandur
+				1.6504, // pl_ratdor
+				0.042959, // pl_ratror
+				5750, // st_teff
+				0.839, // st_rad
+				0.747, // st_mass
+				-0.68, // st_met
+				4.464, // st_logg
+				'', // sy_gmag
+				'', // sy_rmag
+				13.794, // sy_imag
+				'', // sy_zmag
+				'', // sy_jmag
+				'', // sy_hmag
+				'', // sy_kmag
 			],
-			// Sample 2: Super-Earth
+			// Sample 2: HAT-P-7b - Warm Neptune
 			[
-				'TOI-200b', // planet_name
-				12.456, // pl_orbper
-				0.0823, // pl_orbsmax
-				892, // pl_eqt
-				345.2, // pl_insol
-				0.68, // pl_imppar
-				0.34, // pl_trandep
-				4.12, // pl_trandur
-				18.7, // pl_ratdor
-				0.067, // pl_ratror
-				5890, // st_teff
-				1.12, // st_rad
-				1.05, // st_mass
-				0.05, // st_met
+				'HAT-P-7b', // planet_name
+				13.24934059, // pl_orbper
+				0.11248, // pl_orbsmax
+				806, // pl_eqt
+				101.143, // pl_insol
+				0.3503, // pl_imppar
+				0.06476, // pl_trandep
+				4.4634, // pl_trandur
+				21.82, // pl_ratdor
+				0.023423, // pl_ratror
+				5882, // st_teff
+				1.07, // st_rad
+				1.04, // st_mass
+				0.03, // st_met
+				4.39, // st_logg
+				'', // sy_gmag
+				'', // sy_rmag
+				13.965, // sy_imag
+				'', // sy_zmag
+				'', // sy_jmag
+				'', // sy_hmag
+				'', // sy_kmag
+			],
+			// Sample 3: WASP-12b - Super-Earth
+			[
+				'WASP-12b', // planet_name
+				12.8345022, // pl_orbper
+				0.1075, // pl_orbsmax
+				891, // pl_eqt
+				149.42, // pl_insol
+				0.902, // pl_imppar
+				0.0281, // pl_trandep
+				3.2666, // pl_trandur
+				14.2, // pl_ratdor
+				0.016209, // pl_ratror
+				6087, // st_teff
+				1.14, // st_rad
+				1.07, // st_mass
+				-0.1, // st_met
 				4.35, // st_logg
-				15.2, // sy_gmag
-				14.6, // sy_rmag
-				14.3, // sy_imag
-				14.1, // sy_zmag
-				12.5, // sy_jmag
-				12.2, // sy_hmag
-				12.1, // sy_kmag
+				'', // sy_gmag
+				'', // sy_rmag
+				13.616, // sy_imag
+				'', // sy_zmag
+				'', // sy_jmag
+				'', // sy_hmag
+				'', // sy_kmag
 			],
-			// Sample 3: Warm Neptune
+			// Sample 4: K2-18b - Sub-Neptune
 			[
-				'K2-300b', // planet_name
-				8.789, // pl_orbper
-				0.0678, // pl_orbsmax
-				1023, // pl_eqt
-				567.3, // pl_insol
-				0.51, // pl_imppar
-				0.56, // pl_trandep
-				3.78, // pl_trandur
-				14.5, // pl_ratdor
-				0.089, // pl_ratror
-				5456, // st_teff
-				0.87, // st_rad
-				0.84, // st_mass
-				-0.23, // st_met
-				4.46, // st_logg
-				15.8, // sy_gmag
-				15.1, // sy_rmag
-				14.9, // sy_imag
-				14.7, // sy_zmag
-				13.1, // sy_jmag
-				12.8, // sy_hmag
-				12.7, // sy_kmag
+				'K2-18b', // planet_name
+				14.70748976, // pl_orbper
+				0.11945, // pl_orbsmax
+				819, // pl_eqt
+				90.384, // pl_insol
+				0.127, // pl_imppar
+				0.0262, // pl_trandep
+				3.1584, // pl_trandur
+				35.9, // pl_ratdor
+				0.014671, // pl_ratror
+				5665, // st_teff
+				1.19, // st_rad
+				1.02, // st_mass
+				0.23, // st_met
+				4.29, // st_logg
+				'', // sy_gmag
+				'', // sy_rmag
+				13.182, // sy_imag
+				'', // sy_zmag
+				'', // sy_jmag
+				'', // sy_hmag
+				'', // sy_kmag
+			],
+			// Sample 5: 55 Cancri e - Ultra-short period planet
+			[
+				'55 Cancri e', // planet_name
+				1.049406508, // pl_orbper
+				0.0244, // pl_orbsmax
+				'', // pl_eqt
+				'', // pl_insol
+				0.112, // pl_imppar
+				0.04475, // pl_trandep
+				3.0072, // pl_trandur
+				2.766, // pl_ratdor
+				0.018735, // pl_ratror
+				4745, // st_teff
+				'', // st_rad
+				'', // st_mass
+				-0.24, // st_met
+				'', // st_logg
+				'', // sy_gmag
+				'', // sy_rmag
+				11.973, // sy_imag
+				'', // sy_zmag
+				'', // sy_jmag
+				'', // sy_hmag
+				'', // sy_kmag
+			],
+			// Sample 6: Qatar-1b - Hot Neptune
+			[
+				'Qatar-1b', // planet_name
+				8.765528, // pl_orbper
+				0.082, // pl_orbsmax
+				992.91, // pl_eqt
+				228.913, // pl_insol
+				0.493868, // pl_imppar
+				0.05726987, // pl_trandep
+				3.9154065, // pl_trandur
+				'', // pl_ratdor
+				0.02296595, // pl_ratror
+				5631, // st_teff
+				1.3162, // st_rad
+				0.9698, // st_mass
+				0.035, // st_met
+				4.184, // st_logg
+				'', // sy_gmag
+				'', // sy_rmag
+				'', // sy_imag
+				'', // sy_zmag
+				'', // sy_jmag
+				'', // sy_hmag
+				'', // sy_kmag
+			],
+			// Sample 7: HD 209458 b - Hot Jupiter (Osiris)
+			[
+				'HD 209458 b', // planet_name
+				4.553370029, // pl_orbper
+				0.0537, // pl_orbsmax
+				1264, // pl_eqt
+				603.58, // pl_insol
+				0.951, // pl_imppar
+				2.3692, // pl_trandep
+				3.2209, // pl_trandur
+				8.201, // pl_ratdor
+				0.213383, // pl_ratror
+				6306, // st_teff
+				1.109, // st_rad
+				0.991, // st_mass
+				-0.36, // st_met
+				4.346, // st_logg
+				'', // sy_gmag
+				'', // sy_rmag
+				11.338, // sy_imag
+				'', // sy_zmag
+				'', // sy_jmag
+				'', // sy_hmag
+				'', // sy_kmag
+			],
+			// Sample 8: Kepler-22b - Temperate planet in habitable zone
+			[
+				'Kepler-22b', // planet_name
+				52.884577, // pl_orbper
+				0.2861, // pl_orbsmax
+				555, // pl_eqt
+				22.44, // pl_insol
+				1.272, // pl_imppar
+				1.1969, // pl_trandep
+				7.892, // pl_trandur
+				31, // pl_ratdor
+				0.408862, // pl_ratror
+				6483, // st_teff
+				1.078, // st_rad
+				1.114, // st_mass
+				-0.28, // st_met
+				4.42, // st_logg
+				'', // sy_gmag
+				'', // sy_rmag
+				15.522, // sy_imag
+				'', // sy_zmag
+				'', // sy_jmag
+				'', // sy_hmag
+				'', // sy_kmag
+			],
+			// Sample 9: Kepler-10b - Cool Neptune
+			[
+				'Kepler-10b', // planet_name
+				16.332995, // pl_orbper
+				0.118, // pl_orbsmax
+				591, // pl_eqt
+				26.373, // pl_insol
+				0.12, // pl_imppar
+				0.0289, // pl_trandep
+				2.122, // pl_trandur
+				61.27, // pl_ratdor
+				0.01528, // pl_ratror
+				5212, // st_teff
+				0.781, // st_rad
+				0.798, // st_mass
+				-0.11, // st_met
+				4.566, // st_logg
+				'', // sy_gmag
+				'', // sy_rmag
+				12.694, // sy_imag
+				'', // sy_zmag
+				'', // sy_jmag
+				'', // sy_hmag
+				'', // sy_kmag
+			],
+			// Sample 10: WASP-33b - Warm Jupiter
+			[
+				'WASP-33b', // planet_name
+				5.25449393, // pl_orbper
+				0.0602, // pl_orbsmax
+				975, // pl_eqt
+				213.25, // pl_insol
+				0.837, // pl_imppar
+				0.0169, // pl_trandep
+				3.078, // pl_trandur
+				7.52, // pl_ratdor
+				0.013572, // pl_ratror
+				5550, // st_teff
+				0.954, // st_rad
+				1.05, // st_mass
+				'', // st_met
+				4.5, // st_logg
+				'', // sy_gmag
+				'', // sy_rmag
+				15.073, // sy_imag
+				'', // sy_zmag
+				'', // sy_jmag
+				'', // sy_hmag
+				'', // sy_kmag
 			],
 		];
 
