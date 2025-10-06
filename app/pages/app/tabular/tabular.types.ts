@@ -8,16 +8,11 @@
  * Groups astronomical parameters by their measurement domain
  */
 export enum ParameterGroup {
-	TRANSIT = 'TRANSIT',
-	DURATION = 'DURATION',
 	ORBITAL = 'ORBITAL',
-	RATIO = 'RATIO',
-	PHOTOMETRY = 'PHOTOMETRY',
-	ASTROMETRY = 'ASTROMETRY',
+	PLANET = 'PLANET',
+	TRANSIT = 'TRANSIT',
 	STELLAR = 'STELLAR',
-	OBSERVATIONS = 'OBSERVATIONS',
-	DERIVED = 'DERIVED',
-	FLAGS = 'FLAGS',
+	PHOTOMETRY = 'PHOTOMETRY',
 }
 
 /**
@@ -47,82 +42,39 @@ export interface TabularParameter {
 
 /**
  * Request payload for prediction API
- * Contains all 52 parameter values
+ * Contains all 21 parameter values based on the new model
  */
 export interface PredictionRequest {
+	// Orbital parameters
+	pl_orbper: number; // Orbital Period (days)
+	pl_orbsmax: number; // Orbit Semi-Major Axis (AU)
+
+	// Planet physical parameters
+	pl_eqt: number; // Equilibrium Temperature (K)
+	pl_insol: number; // Insolation Flux (Earth flux)
+	pl_imppar: number; // Impact Parameter
+
 	// Transit parameters
-	pl_trandep: number;
-	pl_trandep_frac: number;
-	pl_trandeperr1: number;
-	pl_trandeperr2: number;
-
-	// Duration parameters
-	pl_trandur: number;
-	pl_trandurerr1: number;
-	pl_trandurerr2: number;
-
-	// Orbital period parameters
-	pl_orbper: number;
-	pl_orbpererr1: number;
-	pl_orbpererr2: number;
-
-	// Ratio parameters
-	pl_ratror: number;
-	pl_ratrorerr1: number;
-	pl_ratrorerr2: number;
-
-	// Photometry parameters
-	st_tmag: number;
-	sy_gaiamag: number;
-	sy_kmag: number;
-	sy_jmag: number;
-	sy_hmag: number;
-	sy_vmag: number;
-	sy_bmag: number;
-	sy_w1mag: number;
-	sy_w2mag: number;
-
-	// Astrometry parameters
-	sy_dist: number;
-	sy_plx: number;
-	sy_pm: number;
-	sy_pmra: number;
-	sy_pmdec: number;
+	pl_trandep: number; // Transit Depth (fraction)
+	pl_trandur: number; // Transit Duration (hours)
+	pl_ratdor: number; // Planet-Star Distance over Stellar Radius Ratio
+	pl_ratror: number; // Planet-Star Radius Ratio
 
 	// Stellar parameters
-	st_rad: number;
-	st_teff: number;
-	st_mass: number;
-	st_logg: number;
-	st_dens: number;
-	st_vsin: number;
-	st_met: number;
+	st_teff: number; // Stellar Effective Temperature (K)
+	st_rad: number; // Stellar Radius (Solar radii)
+	st_mass: number; // Stellar Mass (Solar masses)
+	st_met: number; // Stellar Metallicity [Fe/H] (dex)
+	st_logg: number; // Stellar Surface Gravity (log10(cm/s²))
 
-	// Observation parameters
-	st_nphot: number;
-	st_nrvc: number;
-	pl_ntranspec: number;
-	pl_nespec: number;
-	pl_ndispec: number;
-	st_nspec: number;
-
-	// Derived parameters
-	R_p_est_Rearth: number;
-	duty_cycle: number;
-	B_minus_V: number;
-	J_minus_K: number;
-	M_TESS: number;
-	depth_vs_noise: number;
-	rho_star_from_transit: number;
-
-	// Flag parameters
-	ttv_flag: number;
-	tran_flag: number;
-	rv_flag: number;
-	cb_flag: number;
-	pl_controv_flag: number;
-	pl_imppar: number;
-	pl_tranmid: number;
+	// Photometry parameters (magnitudes)
+	sy_gmag: number; // Gaia G-band magnitude
+	sy_rmag: number; // r-band magnitude
+	sy_imag: number; // i-band magnitude
+	sy_zmag: number; // z-band magnitude
+	sy_jmag: number; // 2MASS J-band magnitude
+	sy_hmag: number; // 2MASS H-band magnitude
+	sy_kmag: number; // 2MASS K-band magnitude
 }
 
 /**

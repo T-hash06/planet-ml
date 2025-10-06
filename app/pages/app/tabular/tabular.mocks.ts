@@ -7,63 +7,30 @@ import type { PredictionRequest, PredictionResponse } from './tabular.types';
 
 /**
  * List of all parameter names for generating attribute weights
- * Matches the PREFERRED_COLUMNS from the original specification
+ * Matches the new 21-parameter model structure
  */
 const ALL_FEATURE_NAMES = [
-	'pl_trandep',
-	'pl_trandep_frac',
-	'pl_trandeperr1',
-	'pl_trandeperr2',
-	'pl_trandur',
-	'pl_trandurerr1',
-	'pl_trandurerr2',
 	'pl_orbper',
-	'pl_orbpererr1',
-	'pl_orbpererr2',
+	'pl_orbsmax',
+	'pl_eqt',
+	'pl_insol',
+	'pl_imppar',
+	'pl_trandep',
+	'pl_trandur',
+	'pl_ratdor',
 	'pl_ratror',
-	'pl_ratrorerr1',
-	'pl_ratrorerr2',
-	'st_tmag',
-	'sy_gaiamag',
-	'sy_kmag',
+	'st_teff',
+	'st_rad',
+	'st_mass',
+	'st_met',
+	'st_logg',
+	'sy_gmag',
+	'sy_rmag',
+	'sy_imag',
+	'sy_zmag',
 	'sy_jmag',
 	'sy_hmag',
-	'sy_vmag',
-	'sy_bmag',
-	'sy_w1mag',
-	'sy_w2mag',
-	'sy_dist',
-	'sy_plx',
-	'sy_pm',
-	'sy_pmra',
-	'sy_pmdec',
-	'st_rad',
-	'st_teff',
-	'st_mass',
-	'st_logg',
-	'st_dens',
-	'st_vsin',
-	'st_met',
-	'st_nphot',
-	'st_nrvc',
-	'pl_ntranspec',
-	'pl_nespec',
-	'pl_ndispec',
-	'st_nspec',
-	'R_p_est_Rearth',
-	'duty_cycle',
-	'B_minus_V',
-	'J_minus_K',
-	'M_TESS',
-	'depth_vs_noise',
-	'rho_star_from_transit',
-	'ttv_flag',
-	'tran_flag',
-	'rv_flag',
-	'cb_flag',
-	'pl_controv_flag',
-	'pl_imppar',
-	'pl_tranmid',
+	'sy_kmag',
 ];
 
 /**
@@ -89,60 +56,27 @@ function generateAttributeWeights(
 
 	// Get default values to identify modified parameters
 	const defaultValues: Record<string, number> = {
-		pl_trandep: 5000,
-		pl_trandep_frac: 0.005,
-		pl_trandeperr1: 100,
-		pl_trandeperr2: -100,
-		pl_trandur: 3.5,
-		pl_trandurerr1: 0.1,
-		pl_trandurerr2: -0.1,
 		pl_orbper: 10,
-		pl_orbpererr1: 0.01,
-		pl_orbpererr2: -0.01,
+		pl_orbsmax: 0.06,
+		pl_eqt: 1000,
+		pl_insol: 500,
+		pl_imppar: 0.55,
+		pl_trandep: 0.2,
+		pl_trandur: 4,
+		pl_ratdor: 15,
 		pl_ratror: 0.1,
-		pl_ratrorerr1: 0.005,
-		pl_ratrorerr2: -0.005,
-		st_tmag: 10,
-		sy_gaiamag: 12,
-		sy_kmag: 9,
-		sy_jmag: 10,
-		sy_hmag: 9.5,
-		sy_vmag: 11,
-		sy_bmag: 11.5,
-		sy_w1mag: 8.5,
-		sy_w2mag: 8.5,
-		sy_dist: 100,
-		sy_plx: 10,
-		sy_pm: 50,
-		sy_pmra: 0,
-		sy_pmdec: 0,
+		st_teff: 5700,
 		st_rad: 1,
-		st_teff: 5778,
-		st_mass: 1,
-		st_logg: 4.44,
-		st_dens: 1.41,
-		st_vsin: 2,
-		st_met: 0,
-		st_nphot: 1,
-		st_nrvc: 0,
-		pl_ntranspec: 0,
-		pl_nespec: 0,
-		pl_ndispec: 0,
-		st_nspec: 0,
-		R_p_est_Rearth: 1,
-		duty_cycle: 0.05,
-		B_minus_V: 0.65,
-		J_minus_K: 0.5,
-		M_TESS: 5,
-		depth_vs_noise: 10,
-		rho_star_from_transit: 1.41,
-		ttv_flag: 0,
-		tran_flag: 1,
-		rv_flag: 0,
-		cb_flag: 0,
-		pl_controv_flag: 0,
-		pl_imppar: 0.5,
-		pl_tranmid: 2458000,
+		st_mass: 0.96,
+		st_met: -0.05,
+		st_logg: 4.45,
+		sy_gmag: 15,
+		sy_rmag: 14.4,
+		sy_imag: 14.2,
+		sy_zmag: 14.2,
+		sy_jmag: 12.8,
+		sy_hmag: 12.5,
+		sy_kmag: 12.4,
 	};
 
 	// Calculate importance scores based on deviation from defaults
@@ -169,11 +103,11 @@ function generateAttributeWeights(
 			'pl_trandep',
 			'pl_orbper',
 			'pl_trandur',
-			'depth_vs_noise',
-			'st_tmag',
+			'pl_ratror',
 			'st_teff',
 			'st_rad',
-			'pl_ratror',
+			'st_mass',
+			'pl_insol',
 		];
 		const baselineImportance = keyFeatures.includes(featureName) ? 0.3 : 0;
 
@@ -183,31 +117,28 @@ function generateAttributeWeights(
 		// Determine if this feature contributes positively to detection
 		let contributeToDetection = false;
 
-		// Transit depth, SNR, observations -> contribute positively
-		if (
-			featureName.includes('trandep') ||
-			featureName.includes('depth_vs_noise') ||
-			featureName.includes('nphot') ||
-			featureName.includes('nrvc') ||
-			featureName === 'tran_flag'
-		) {
+		// Transit depth, duration -> larger values contribute positively
+		if (featureName === 'pl_trandep' || featureName === 'pl_trandur') {
 			contributeToDetection = currentValue > defaultValue;
 		}
 		// Magnitude values -> brighter (lower values) contribute positively
 		else if (featureName.includes('mag')) {
 			contributeToDetection = currentValue < defaultValue;
 		}
-		// Errors -> smaller errors contribute positively
-		else if (featureName.includes('err')) {
-			contributeToDetection = Math.abs(currentValue) < Math.abs(defaultValue);
+		// Orbital period -> shorter periods (hot planets) easier to detect
+		else if (featureName === 'pl_orbper') {
+			contributeToDetection = currentValue < defaultValue * 1.2;
 		}
-		// Distance -> closer (lower values) contribute positively
-		else if (featureName === 'sy_dist') {
+		// Stellar parameters -> solar-like values contribute positively
+		else if (featureName === 'st_teff') {
+			contributeToDetection = Math.abs(currentValue - 5700) < 1000;
+		} else if (featureName === 'st_rad' || featureName === 'st_mass') {
+			contributeToDetection =
+				currentValue > defaultValue * 0.7 && currentValue < defaultValue * 1.3;
+		}
+		// Impact parameter -> lower values (central transits) contribute positively
+		else if (featureName === 'pl_imppar') {
 			contributeToDetection = currentValue < defaultValue;
-		}
-		// Stellar radius/mass -> appropriate values contribute positively
-		else if (featureName === 'st_rad' || featureName === 'st_mass') {
-			contributeToDetection = currentValue > defaultValue * 0.8;
 		}
 		// Default: based on value relative to default
 		else {
@@ -301,24 +232,32 @@ function generateAttributeWeights(
  */
 function calculatePredictedValue(params: PredictionRequest): number {
 	// Simple heuristic: combine multiple factors
-	// Higher transit depth -> higher probability
-	const depthFactor = Math.min(params.pl_trandep / 10000, 1) * 0.3;
+	// Higher transit depth -> higher probability (depth in %)
+	const depthFactor = Math.min(params.pl_trandep / 3, 1) * 0.25;
 
-	// Longer orbital period -> slightly lower probability (hot Jupiters easier to detect)
-	const periodFactor = Math.max(0, 1 - params.pl_orbper / 1000) * 0.2;
+	// Shorter orbital period -> higher probability (hot planets easier to detect)
+	const periodFactor = Math.max(0, 1 - params.pl_orbper / 100) * 0.2;
 
-	// More observations -> higher probability
-	const obsFactor = Math.min((params.st_nphot + params.st_nrvc) / 20, 1) * 0.15;
+	// Longer transit duration -> higher probability
+	const durationFactor = Math.min(params.pl_trandur / 10, 1) * 0.15;
 
-	// Better signal-to-noise -> higher probability
-	const snrFactor = Math.min(params.depth_vs_noise / 100, 1) * 0.2;
+	// Brighter star (lower magnitude) -> higher probability
+	const brightnessFactor = Math.max(0, 1 - (params.sy_gmag - 10) / 10) * 0.15;
+
+	// Higher insolation flux -> higher probability (easier to detect hot planets)
+	const insolFactor = Math.min(params.pl_insol / 2000, 1) * 0.1;
 
 	// Random component for variation
 	const randomFactor = randomInRange(0, 0.15);
 
 	// Base probability
 	let probability =
-		depthFactor + periodFactor + obsFactor + snrFactor + randomFactor;
+		depthFactor +
+		periodFactor +
+		durationFactor +
+		brightnessFactor +
+		insolFactor +
+		randomFactor;
 
 	// Clamp between 0 and 1
 	probability = Math.max(0, Math.min(1, probability));
@@ -328,25 +267,30 @@ function calculatePredictedValue(params: PredictionRequest): number {
 
 /**
  * Calculate confidence level based on parameter quality
- * Higher confidence when errors are smaller and observations are more numerous
+ * Higher confidence when data quality is better
  */
 function calculateConfidence(params: PredictionRequest): number {
-	// Smaller relative errors -> higher confidence
-	const depthError = Math.abs(params.pl_trandeperr1 / params.pl_trandep);
-	const periodError = Math.abs(params.pl_orbpererr1 / params.pl_orbper);
-	const errorFactor = Math.max(0, 1 - (depthError + periodError) / 2) * 0.4;
+	// Higher transit depth -> higher confidence (easier to detect)
+	const depthFactor = Math.min(params.pl_trandep / 2, 1) * 0.25;
 
-	// More observations -> higher confidence
-	const totalObs = params.st_nphot + params.st_nrvc + params.pl_ntranspec;
-	const obsFactor = Math.min(totalObs / 50, 1) * 0.3;
+	// Longer transit duration -> higher confidence
+	const durationFactor = Math.min(params.pl_trandur / 8, 1) * 0.2;
 
-	// Better SNR -> higher confidence
-	const snrFactor = Math.min(params.depth_vs_noise / 100, 1) * 0.2;
+	// Brighter star -> higher confidence
+	const brightnessFactor = Math.max(0, 1 - (params.sy_gmag - 10) / 10) * 0.25;
+
+	// Impact parameter close to 0 (central transit) -> higher confidence
+	const impactFactor = Math.max(0, 1 - Math.abs(params.pl_imppar) / 1) * 0.2;
 
 	// Random component
 	const randomFactor = randomInRange(0, 0.1);
 
-	let confidence = errorFactor + obsFactor + snrFactor + randomFactor;
+	let confidence =
+		depthFactor +
+		durationFactor +
+		brightnessFactor +
+		impactFactor +
+		randomFactor;
 
 	// Clamp between 0.5 and 1 (never too low confidence)
 	confidence = Math.max(0.5, Math.min(1, confidence));

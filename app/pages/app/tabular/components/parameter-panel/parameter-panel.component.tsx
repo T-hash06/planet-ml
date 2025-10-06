@@ -1,7 +1,7 @@
 /**
  * Parameter Panel Component
  * Floating left panel containing all parameter groups and CSV upload
- * Main control interface for configuring the 52 astronomical parameters
+ * Main control interface for configuring the 21 astronomical parameters
  */
 
 import {
@@ -33,7 +33,7 @@ interface ParameterPanelProps {
 
 /**
  * Main parameter panel with collapsible groups and CSV upload
- * Displays all 52 parameters organized into logical categories
+ * Displays all 21 parameters organized into logical categories
  */
 export const ParameterPanel = memo(function ParameterPanel({
 	onChange,
@@ -152,16 +152,11 @@ export const ParameterPanel = memo(function ParameterPanel({
 
 	// Group order for display
 	const groupOrder: ParameterGroupEnum[] = [
-		ParameterGroupEnum.TRANSIT,
-		ParameterGroupEnum.DURATION,
 		ParameterGroupEnum.ORBITAL,
-		ParameterGroupEnum.RATIO,
-		ParameterGroupEnum.PHOTOMETRY,
-		ParameterGroupEnum.ASTROMETRY,
+		ParameterGroupEnum.PLANET,
+		ParameterGroupEnum.TRANSIT,
 		ParameterGroupEnum.STELLAR,
-		ParameterGroupEnum.OBSERVATIONS,
-		ParameterGroupEnum.DERIVED,
-		ParameterGroupEnum.FLAGS,
+		ParameterGroupEnum.PHOTOMETRY,
 	];
 
 	return (

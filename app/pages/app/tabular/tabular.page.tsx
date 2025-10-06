@@ -16,7 +16,7 @@ import { validateField } from './tabular.validators';
  *
  * Interactive interface for exoplanet detection using tabular astronomical data.
  * Features:
- * - Floating parameter panel with 52 configurable astronomical parameters
+ * - Floating parameter panel with 21 configurable astronomical parameters
  * - Real-time prediction results with circular progress display
  * - Model interpretability visualization with feature importance chart
  * - CSV file upload support for batch predictions
@@ -48,7 +48,7 @@ const TabularPage = memo(function TabularPage() {
 		},
 	});
 
-	// TanStack Form initialization with all 52 parameters
+	// TanStack Form initialization with all 21 parameters
 	const form = useForm({
 		defaultValues: getDefaultValues(),
 		validators: {
