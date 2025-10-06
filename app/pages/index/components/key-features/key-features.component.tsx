@@ -96,8 +96,10 @@ const FeatureCard = memo(function FeatureCard({
 				transition: { duration: 0.3, ease: 'easeOut' },
 			}}
 			className={cn([
-				'relative grid h-full w-full cursor-pointer grid-rows-[30%_3rem_1fr] rounded-large p-4 text-center',
-				'sm:w-64 sm:p-5',
+				'relative grid w-full cursor-pointer rounded-large p-4 text-center',
+				'grid-rows-[auto_auto_1fr] gap-3',
+				'min-h-[200px]',
+				'sm:h-full sm:w-64 sm:p-5 sm:grid-rows-[30%_3rem_1fr] sm:gap-0',
 				'max-w-sm mx-auto sm:mx-0',
 				'bg-gradient-to-br from-content2 to-content1',
 				'border border-divider/50',
@@ -118,7 +120,9 @@ const FeatureCard = memo(function FeatureCard({
 				whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
 				transition={{ duration: 0.5 }}
 				className={cn([
-					'relative z-10 flex aspect-square h-full items-center justify-center place-self-center rounded-full',
+					'relative z-10 flex items-center justify-center place-self-center rounded-full',
+					'w-20 h-20',
+					'sm:aspect-square sm:h-full sm:w-auto',
 					'bg-gradient-to-br from-secondary via-primary to-secondary',
 					'text-foreground dark:text-foreground',
 					'shadow-lg shadow-primary/50',
@@ -242,12 +246,12 @@ const KeyFeatures = memo(function KeyFeatures() {
 			<motion.div
 				variants={containerVariants}
 				className={cn([
-					'mt-8 text-foreground h-64',
-					'sm:mt-12',
+					'mt-8 text-foreground',
+					'sm:mt-12 sm:h-64',
 					'md:mt-16',
-					'grid gap-6 auto-rows-fr',
-					'grid-cols-1',
-					'sm:grid-cols-2 sm:gap-8',
+					'grid gap-6',
+					'grid-cols-1 auto-rows-auto',
+					'sm:grid-cols-2 sm:gap-8 sm:auto-rows-fr',
 					'lg:grid-cols-4 lg:gap-10',
 					'max-w-7xl mx-auto',
 				])}
